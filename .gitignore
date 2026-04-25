@@ -1,0 +1,19 @@
+# Node
+node_modules/
+dist/
+build/
+*.log
+# Env
+.env
+.env.local
+# IDE
+.idea/
+.vscode/
+*.iml
+# Android
+.gradle/
+local.properties
+captures/
+# Misc
+.DS_Store
+Thumbs.db
