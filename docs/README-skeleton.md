@@ -1,6 +1,6 @@
 # WalkMate
 
-> **WalkMate는 워크온의 복제가 아니라, 사용자로서 느낀 "Health Connect 통합 부재 + 재부팅/타임존 엣지케이스 미처리"를 해결하려는 실험 프로젝트입니다.**
+> **Android(Kotlin/MVVM/Coroutines) + Backend(Express/JWT/MongoDB) + 배포(Render Starter)까지 혼자서 production-ready 수준으로 만든 헬스케어 풀스택 프로젝트.** 개발 중 발견·해결한 백엔드 보안 결함 3개와 Android 14 FGS Type 함정을 README에 기록했습니다.
 
 [![CI](https://github.com/lsk30323/walkmate/actions/workflows/android.yml/badge.svg)](https://github.com/lsk30323/walkmate/actions)
 [![Play Store](https://img.shields.io/badge/Play_Store-Internal_Testing-success)]()
@@ -17,14 +17,34 @@
 
 ---
 
-## 🎯 무엇을 풀었나
+## 🎯 풀스택으로 무엇을 풀었나
 
-| 문제 | WalkMate의 답 |
+> 신입 포트폴리오에서 흔히 'Android만' 또는 '백엔드만'에서 끝나는 한계를 넘어, **양쪽 모두에서 production 수준의 함정을 직접 부딪혀 해결**했습니다.
+
+### Backend (Express + MongoDB + JWT)
+
+| 발견한 보안 결함 | 적용한 해결 |
 |---|---|
+| 인증 endpoint 브루트포스 무방어 | `express-rate-limit` 5회/분 (auth) + 30회/분 (전역) |
+| `/steps/sync` 걸음수 위변조 가능 (일일 제한 없음) | upsert + 일일 상한 50,000보 검증 (Zod) + 한국 bbox 좌표 게이트 |
+| OkHttp Authenticator 401 자동 갱신 시 재진입 race | mutex 직렬화 + refresh 실패 시 즉시 logout |
+
+### Android (Kotlin + MVVM + Foreground Service)
+
+| 함정 | 해결 |
+|---|---|
+| **Android 14 FGS Type** 누락 시 즉시 크래시 | `foregroundServiceType="health"` / `"location"` 명시 |
 | 만보기 앱이 **재부팅 시 오늘 걸음수가 0으로 망가짐** | `BOOT_COUNT` 비교 + `baselineSensorValue` 분리 스키마로 baseline 보정 |
 | **자정·해외 이동 시** 걸음수 날짜가 꼬임 | `LocalDate.now(ZoneId.systemDefault())` + `tzId` 필드 명시 저장 |
-| **Health Connect 통합 부재** (워크온 본 앱 미지원) | `StepSourceResolver`: HC 우선 → Sensor fallback (사용자가 다른 헬스앱 데이터 잃지 않음) |
-| **Android 14 FGS Type** 누락 시 즉시 크래시 | `foregroundServiceType="health"` / `"location"` 정확 선언 |
+| Health Connect 미설치 시 동작 불가 | `StepSourceResolver`: HC 우선 → Sensor fallback |
+
+### Infra (Render Starter $7/월 — 무료티어 폐지 사실 반영)
+
+| 결정 | 근거 |
+|---|---|
+| Render Starter $7/월 유료 채택 | Railway 무료티어 2023년 폐지 / Render 무료는 cold start 15-45초 (제출 시점 동작 보장 X) |
+| LRU 캐시 차등 (Geocoding 7일 / Reverse 24h) | Naver API 일일 30k 한도 보호 + KST 자정 quota reset |
+| Prometheus `_stats` 엔드포인트 | 일일 사용량 80% 도달 시 알림 메트릭 |
 
 ---
 
