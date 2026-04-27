@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>WalkMate 진행 대시보드</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  body { font-family: -apple-system, "Pretendard", "Apple SD Gothic Neo", system-ui, sans-serif; }
+  .card { transition: transform .15s ease, box-shadow .15s ease; }
+  .card:hover { transform: translateY(-2px); box-shadow: 0 12px 28px -10px rgba(0,0,0,.18); }
+  .progress-bar { height: 8px; border-radius: 999px; background: #e2e8f0; overflow: hidden; }
+  .progress-bar > span { display: block; height: 100%; transition: width .3s ease; }
+  .pill { display: inline-block; padding: 2px 10px; border-radius: 999px; font-size: 11px; font-weight: 600; }
+  .pulse { animation: pulse 2s infinite; }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+</style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+<header class="border-b bg-white sticky top-0 z-10">
+  <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <div class="w-10 h-10 rounded-xl bg-emerald-500 grid place-items-center text-white font-extrabold">W</div>
+      <div>
+        <div class="font-bold text-slate-900">WalkMate 진행 대시보드</div>
+        <div class="text-xs text-slate-500">10주 포트폴리오 — 현재 Week 0 (사전 준비)</div>
+      </div>
+    </div>
+    <div class="flex items-center gap-2 text-xs text-slate-500">
+      <span class="pulse">●</span> 2026-04-25 업데이트
+      <span class="text-slate-300">|</span>
+      <a href="https://github.com/lsk30323/walkmate" class="hover:text-slate-900">GitHub ↗</a>
+    </div>
+  </div>
+</header>
+
+<main class="max-w-6xl mx-auto px-6 py-8">
+
+  <!-- 상단 큰 진행률 -->
+  <section class="mb-8 bg-gradient-to-br from-emerald-500 to-emerald-600 text-white rounded-3xl p-6 md:p-8">
+    <div class="flex items-center justify-between mb-4">
+      <div>
+        <div class="text-xs uppercase tracking-wider opacity-80 font-bold">전체 사전 준비</div>
+        <div class="text-4xl md:text-5xl font-extrabold mt-1">82%</div>
+        <div class="text-sm opacity-90 mt-1">9 of 11 영역 완료</div>
+      </div>
+      <div class="text-right">
+        <div class="text-xs opacity-80">최근 액션</div>
+        <div class="font-bold">Stitch DS v2 검증</div>
+        <div class="text-xs opacity-80">+ design system 토큰 audit</div>
+      </div>
+    </div>
+    <div class="progress-bar bg-white/20">
+      <span class="bg-white" style="width: 82%"></span>
+    </div>
+  </section>
+
+  <!-- 11개 영역 진행 -->
+  <section class="mb-10">
+    <h2 class="text-xs font-bold tracking-wider text-emerald-600 uppercase mb-4">완료된 영역</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="domains"></div>
+  </section>
+
+  <!-- 핵심 산출물 -->
+  <section class="mb-10">
+    <h2 class="text-xs font-bold tracking-wider text-emerald-600 uppercase mb-4">핵심 산출물 5개</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-3" id="artifacts"></div>
+  </section>
+
+  <!-- 파일 트리 -->
+  <section class="mb-10">
+    <h2 class="text-xs font-bold tracking-wider text-emerald-600 uppercase mb-4">생성된 파일 구조</h2>
+    <div class="bg-white border rounded-2xl p-5">
+      <pre class="text-xs leading-relaxed text-slate-700 font-mono whitespace-pre overflow-x-auto">
+walkmate-prep/                          🏠 GitHub: lsk30323/walkmate (4 commits)
+├── decision-support/                   🎨 시각 도구
+│   ├── index.html                      — 4-시그널 의사결정 도구
+│   ├── walkmate-ui.html                — 4 화면 모목업 (홈/산책/랭킹/로그인)
+│   └── dashboard.html                  ← 지금 보고 있는 페이지
+│
+├── design-system/                      🎨 Material 3 디자인 시스템
+│   ├── android-resources/
+│   │   ├── values/                     — colors.xml (57) + themes.xml + shapes.xml + type.xml
+│   │   ├── values-night/               — 다크 colors + themes (페어리티 100%)
+│   │   └── font/pretendard.xml         — Downloadable font
+│   ├── stitch-raw/                     — Stitch DS v2 + 홈 시안 PNG + verification
+│   ├── audit-report.md                 — WCAG contrast 전수 + 토큰 카운트 정정
+│   ├── stitch-storage-verification.md  — Stitch 저장 상태 empirical 검증
+│   └── mapping-rationale.md            — 면접 답변 12개
+│
+├── backend/                            🛠 Express 스캐폴드
+│   ├── src/app.ts                      — helmet + CORS + rate-limit + /maps 라우터
+│   ├── src/routes/maps.ts              — GET /maps/geocode, /maps/reverse-geocode
+│   ├── src/services/naverMapsClient.ts — NCP HTTP + KST quota
+│   ├── src/middleware/mapsCache.ts     — LRU (Geo 7d / RevGeo 24h)
+│   ├── package.json + tsconfig.json + .env.example
+│
+├── docs/                               📚 문서
+│   ├── README-skeleton.md              — README 골격 (Mermaid 포함)
+│   ├── interview-prep.md               — Top 5+1 면접 답변 풀버전
+│   ├── jd-matching-checklist.md        — Day 0 8 채널 조사 시트
+│   └── adr/                            — ADR-000~006 (6개)
+│
+└── REPEATED-TASKS-AND-ISSUES.md        — Agent 팀 운영 회고</pre>
+    </div>
+  </section>
+
+  <!-- 다음 단계 -->
+  <section class="mb-10">
+    <h2 class="text-xs font-bold tracking-wider text-emerald-600 uppercase mb-4">다음 추천 단계</h2>
+    <div class="space-y-3" id="next-steps"></div>
+  </section>
+
+  <!-- 10주 타임라인 -->
+  <section class="mb-10">
+    <h2 class="text-xs font-bold tracking-wider text-emerald-600 uppercase mb-4">10주 로드맵</h2>
+    <div class="bg-white border rounded-2xl p-5 overflow-x-auto">
+      <div class="grid grid-cols-11 gap-1 min-w-[700px]" id="timeline"></div>
+      <div class="grid grid-cols-11 gap-1 min-w-[700px] mt-2 text-[10px] text-center text-slate-500" id="timeline-labels"></div>
+    </div>
+  </section>
+
+  <!-- 핵심 의사결정 -->
+  <section class="mb-12">
+    <h2 class="text-xs font-bold tracking-wider text-emerald-600 uppercase mb-4">확정된 핵심 의사결정 8개</h2>
+    <div class="bg-white border rounded-2xl divide-y" id="decisions"></div>
+  </section>
+
+</main>
+
+<footer class="border-t bg-white">
+  <div class="max-w-6xl mx-auto px-6 py-5 text-xs text-slate-500 flex flex-wrap justify-between gap-3">
+    <div>WalkMate 사전 준비 — 7명 가상 팀 + Stitch MCP + 사용자 의사결정 종합</div>
+    <div>로컬 파일 · Chrome 새로고침으로 갱신</div>
+  </div>
+</footer>
+
+<script>
+const DOMAINS = [
+  { name: "프로젝트 명세서 v3", icon: "📋", progress: 100, note: "v2 → v3 (Naver Geocoding 절충안)", color: "emerald" },
+  { name: "의사결정 시각화", icon: "🎯", progress: 100, note: "4-시그널 + 자가 점검 도구", color: "emerald" },
+  { name: "UI 모목업 (4 화면)", icon: "📱", progress: 100, note: "홈/산책/랭킹/로그인", color: "emerald" },
+  { name: "디자인 시스템 (M3)", icon: "🎨", progress: 100, note: "57 light + 57 dark 토큰, audit 통과", color: "emerald" },
+  { name: "Stitch DS v2", icon: "🤖", progress: 100, note: "검증 + 50 derived 비교", color: "emerald" },
+  { name: "백엔드 스캐폴드", icon: "🛠", progress: 90, note: "코드 작성 ✓ / npm install 미실행", color: "blue" },
+  { name: "ADR 문서 (6개)", icon: "📝", progress: 100, note: "ADR-000~006 의사결정 기록", color: "emerald" },
+  { name: "면접 답변 (Top 6)", icon: "🎤", progress: 100, note: "30초/60초 + 어필 전환", color: "emerald" },
+  { name: "JD 매칭 검증", icon: "🔍", progress: 0, note: "Day 0 액션 — 사용자 수동 필수", color: "amber" },
+  { name: "Android 프로젝트 (Week 1)", icon: "🤖", progress: 0, note: "프로젝트 생성 + 리소스 복사", color: "slate" },
+  { name: "GitHub repo 셋업", icon: "🔗", progress: 100, note: "lsk30323/walkmate · 4 commits", color: "emerald" },
+];
+
+function colorMap(c) {
+  const m = {
+    emerald: { bg: "bg-emerald-50", border: "border-emerald-200", text: "text-emerald-700", solid: "bg-emerald-500" },
+    blue: { bg: "bg-blue-50", border: "border-blue-200", text: "text-blue-700", solid: "bg-blue-500" },
+    amber: { bg: "bg-amber-50", border: "border-amber-200", text: "text-amber-700", solid: "bg-amber-500" },
+    slate: { bg: "bg-slate-50", border: "border-slate-200", text: "text-slate-700", solid: "bg-slate-400" },
+  };
+  return m[c];
+}
+
+document.getElementById("domains").innerHTML = DOMAINS.map(d => {
+  const c = colorMap(d.color);
+  const status = d.progress === 100 ? "✅ 완료" : d.progress > 0 ? "🟡 진행 중" : "⏳ 대기";
+  return `
+    <div class="card bg-white border ${c.border} rounded-2xl p-4">
+      <div class="flex items-start justify-between mb-2">
+        <div class="flex items-center gap-2">
+          <div class="w-9 h-9 rounded-lg ${c.bg} grid place-items-center text-lg">${d.icon}</div>
+          <div class="font-semibold text-sm text-slate-900">${d.name}</div>
+        </div>
+        <span class="pill ${c.bg} ${c.text}">${status}</span>
+      </div>
+      <div class="progress-bar"><span class="${c.solid}" style="width: ${d.progress}%"></span></div>
+      <div class="text-xs text-slate-500 mt-2">${d.note}</div>
+    </div>
+  `;
+}).join("");
+
+const ARTIFACTS = [
+  { title: "v3 명세서", icon: "📋", file: "Downloads/WalkMate_프로젝트_명세서_v3.md", lines: "~600줄" },
+  { title: "M3 colors.xml", icon: "🎨", file: "design-system/.../values/colors.xml", lines: "57 토큰" },
+  { title: "면접 스크립트", icon: "🎤", file: "docs/interview-prep.md", lines: "Top 6" },
+  { title: "백엔드 코드", icon: "🛠", file: "backend/src/", lines: "8 파일" },
+  { title: "audit-report", icon: "🔬", file: "design-system/audit-report.md", lines: "WCAG 11쌍" },
+];
+document.getElementById("artifacts").innerHTML = ARTIFACTS.map(a => `
+  <div class="card bg-white border rounded-2xl p-4 text-center">
+    <div class="text-2xl mb-1">${a.icon}</div>
+    <div class="font-semibold text-sm text-slate-900">${a.title}</div>
+    <div class="text-[10px] text-slate-400 mt-1 truncate" title="${a.file}">${a.file}</div>
+    <div class="text-xs text-emerald-600 font-bold mt-1">${a.lines}</div>
+  </div>
+`).join("");
+
+const NEXT_STEPS = [
+  {
+    priority: "P0",
+    title: "워크온/스왈라비 본 앱 1주 사용 + JD 8 채널 조사",
+    detail: "면접에서 '본 앱 써보셨어요?' 질문 한 방에 뚫리지 않으려면 필수. JD 매칭표를 추측이 아닌 실제 공고 기반으로 재작성. <code>docs/jd-matching-checklist.md</code> 8 채널 모두 확인.",
+    action: "워크온 다운로드 → 매일 1회 사용 + 잡코리아/원티드/사람인/링크드인/로켓펀치/점핏/회사 페이지/Velog 후기 검색",
+    time: "7일 (앱 사용 병행) + 2시간 (조사)",
+    color: "rose",
+  },
+  {
+    priority: "P0",
+    title: "핵심 시그널 1개 결정 (의사결정 도구로)",
+    detail: "<code>decision-support/index.html</code>을 다시 열고 4 옵션 (한국 도메인/Android 깊이/풀스택/의사결정 품질) 중 하나 확정. 결정되면 README 첫 단락 + 면접 답변 #1 톤이 자동 정렬됨.",
+    action: "decision-support/index.html 열기 → 5개 자가 점검 체크 → 추천 옵션 채택",
+    time: "30분",
+    color: "rose",
+  },
+  {
+    priority: "P1",
+    title: "선행 학습 5가지 (Week 0)",
+    detail: "Coroutines/StateFlow / Android 백그라운드 제약(FGS Type) / JWT 인증 흐름 / Step Counter baseline / Health Connect API. 명세서 §9 참조. 7-10일 소요 (낙관적 2-3일 X).",
+    action: "공식 코드랩 + Health Connect samples 따라하기",
+    time: "7-10일",
+    color: "amber",
+  },
+  {
+    priority: "P1",
+    title: "backend/ 실행 테스트",
+    detail: "<code>cd backend && npm install && npm run dev</code> → curl /healthz로 동작 확인. /maps/reverse-geocode 호출 시 NCP 인증 검증. .env에 NAVER_CLIENT_ID/SECRET 채우기.",
+    action: "npm install → ts-node-dev 실행 → MongoDB 임시 docker로 띄우거나 무시",
+    time: "30분",
+    color: "amber",
+  },
+  {
+    priority: "P2",
+    title: "Android 프로젝트 생성 + 디자인 시스템 적용 (Week 1)",
+    detail: "Android Studio 새 프로젝트 → minSdk 26 / targetSdk 34 → <code>design-system/android-resources/*</code>를 <code>app/src/main/res/</code>에 복사. <code>Theme.WalkMate</code> 적용해서 빈 Activity 미리보기 → walkmate-ui.html과 시각 비교.",
+    action: "Android Studio Hedgehog+ 사용 + Material 3 1.11.0 의존성",
+    time: "2시간",
+    color: "blue",
+  },
+  {
+    priority: "P2",
+    title: "GitHub Actions CI 셋업",
+    detail: "<code>.github/workflows/android.yml</code> 작성 — 테스트 + 린트 + APK 빌드. PR마다 자동 실행. main 브랜치 보호 규칙 추가. README 배지 활성화.",
+    action: "Android Gradle CI 템플릿 사용",
+    time: "1시간",
+    color: "blue",
+  },
+  {
+    priority: "P3",
+    title: "Material Theme Builder 비교 (선택)",
+    detail: "<a class='underline' href='https://m3.material.io/theme-builder'>m3.material.io/theme-builder</a>에 emerald-500 seed 입력 → derive 결과를 우리 colors.xml과 비교. Stitch derive와도 3-way 비교 가능. 면접 어필용.",
+    action: "Theme Builder export → 시각 비교 페이지 생성",
+    time: "30분",
+    color: "slate",
+  },
+  {
+    priority: "P3",
+    title: "Compose Color Preview 컴포저블",
+    detail: "<code>WalkMateTheme { ... }</code> 안에 28 토큰 모두 Surface/Text로 렌더하는 <code>@Preview</code> + <code>@Preview(uiMode=NIGHT_YES)</code> 다크 검증. mapping-rationale.md §3 참조.",
+    action: "Compose 1화면 진행 시 같이 작성",
+    time: "1시간",
+    color: "slate",
+  },
+];
+
+function pColor(p) {
+  const m = { rose: "bg-rose-100 text-rose-700 border-rose-200", amber: "bg-amber-100 text-amber-700 border-amber-200",
+              blue: "bg-blue-100 text-blue-700 border-blue-200", slate: "bg-slate-100 text-slate-600 border-slate-200" };
+  return m;
+}
+
+document.getElementById("next-steps").innerHTML = NEXT_STEPS.map((s, i) => {
+  const cls = pColor(s.color);
+  const colorMap = { rose: "rose", amber: "amber", blue: "blue", slate: "slate" }[s.color];
+  const colors = {
+    rose: { border: "border-rose-200", bg: "bg-rose-50", pill: "bg-rose-500 text-white" },
+    amber: { border: "border-amber-200", bg: "bg-amber-50", pill: "bg-amber-500 text-white" },
+    blue: { border: "border-blue-200", bg: "bg-blue-50", pill: "bg-blue-500 text-white" },
+    slate: { border: "border-slate-200", bg: "bg-slate-50", pill: "bg-slate-500 text-white" },
+  }[s.color];
+  return `
+    <div class="card bg-white border ${colors.border} rounded-2xl p-5">
+      <div class="flex items-start gap-4">
+        <div class="flex-shrink-0">
+          <span class="pill ${colors.pill}">${s.priority}</span>
+        </div>
+        <div class="flex-1">
+          <div class="font-bold text-slate-900 mb-1">${s.title}</div>
+          <div class="text-sm text-slate-600 mb-3">${s.detail}</div>
+          <div class="flex flex-wrap gap-3 text-xs">
+            <div class="flex items-center gap-1 ${colors.bg} px-2 py-1 rounded-md">
+              <span class="text-slate-400">▶</span>
+              <span class="text-slate-700">${s.action}</span>
+            </div>
+            <div class="flex items-center gap-1 bg-slate-100 px-2 py-1 rounded-md">
+              <span class="text-slate-400">⏱</span>
+              <span class="text-slate-700">${s.time}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+}).join("");
+
+const TIMELINE = [
+  { week: "0", label: "준비", status: "current", note: "선행 학습 + Day 0 조사" },
+  { week: "1", label: "기반", status: "next", note: "프로젝트 + CI" },
+  { week: "2", label: "걸음수", status: "future", note: "FGS Type + baseline" },
+  { week: "3", label: "Room", status: "future", note: "DB + tzId + 차트" },
+  { week: "4", label: "GPS", status: "future", note: "Maps SDK + Polyline" },
+  { week: "5", label: "HC", status: "future", note: "StepSourceResolver ⭐" },
+  { week: "6", label: "백엔드", status: "future", note: "Express + 보안 3" },
+  { week: "7", label: "연동", status: "future", note: "Top 10 랭킹" },
+  { week: "8", label: "마감", status: "future", note: "Compose + Play Store" },
+  { week: "9", label: "README", status: "future", note: "Mermaid + GIF" },
+  { week: "10", label: "버퍼", status: "future", note: "리젝 대응 + 면접" },
+];
+document.getElementById("timeline").innerHTML = TIMELINE.map(t => {
+  const stylesByStatus = {
+    current: "bg-emerald-500 text-white shadow-lg shadow-emerald-500/30",
+    next: "bg-amber-100 text-amber-800 border-2 border-amber-300",
+    future: "bg-slate-100 text-slate-500"
+  };
+  return `<div class="rounded-lg p-2 text-center ${stylesByStatus[t.status]}">
+    <div class="text-[10px] font-bold opacity-80">W${t.week}</div>
+    <div class="text-xs font-bold mt-1">${t.label}</div>
+  </div>`;
+}).join("");
+document.getElementById("timeline-labels").innerHTML = TIMELINE.map(t => `<div class="px-1">${t.note}</div>`).join("");
+
+const DECISIONS = [
+  { q: "프로젝트 주제", a: "WalkMate (만보기 + GPS + Top 10 랭킹) — ADR-000" },
+  { q: "걸음수 소스", a: "Health Connect 우선 → Sensor fallback (StepSourceResolver) — ADR-001" },
+  { q: "Map Provider", a: "Google Maps SDK + Naver Cloud Geocoding API 절충 (옵션 c+) — ADR-006" },
+  { q: "백엔드", a: "Express + MongoDB + JWT 직접 (Firebase 기각) + 보안 3개 보강" },
+  { q: "배포", a: "Render Starter $7/월 (Railway 무료 폐지)" },
+  { q: "일정", a: "8주 → 10주 공식 연장 (실공수 313h vs 가용 200h)" },
+  { q: "면접 시그널", a: "(미결정) 의사결정 도구 사용해서 4 옵션 중 선택" },
+  { q: "디자인 시스템", a: "Material 3 + emerald 브랜드 (DynamicColors X) + Pretendard" },
+];
+document.getElementById("decisions").innerHTML = DECISIONS.map((d, i) => `
+  <div class="px-5 py-3 flex items-start gap-4 ${i % 2 === 0 ? 'bg-slate-50' : ''}">
+    <div class="text-xs font-bold text-slate-400 w-32 flex-shrink-0">${d.q}</div>
+    <div class="text-sm text-slate-800">${d.a}</div>
+  </div>
+`).join("");
+</script>
+
+</body>
+</html>

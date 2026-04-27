@@ -9,16 +9,18 @@
 
     <!-- Display Large — 거의 미사용, 마케팅 헤더용 -->
     <style name="TextAppearance.WalkMate.DisplayLarge" parent="TextAppearance.Material3.DisplayLarge">
-        <item name="android:fontFamily">@font/pretendard</item>
-        <item name="fontFamily">@font/pretendard</item>
+        <!-- Pretendard 활성화: Week 7 — ttf 번들 후 @font/pretendard로 전환. mapping-rationale.md 참조. -->
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="fontFamily">sans-serif-medium</item>
         <item name="android:textFontWeight">700</item>
         <item name="android:lineSpacingMultiplier">1.4</item>
     </style>
 
     <!-- Headline Large — 화면 메인 제목 (홈 인사말, 랭킹 타이틀) -->
     <style name="TextAppearance.WalkMate.HeadlineLarge" parent="TextAppearance.Material3.HeadlineLarge">
-        <item name="android:fontFamily">@font/pretendard</item>
-        <item name="fontFamily">@font/pretendard</item>
+        <!-- Pretendard 활성화: Week 7 — ttf 번들 후 @font/pretendard로 전환. mapping-rationale.md 참조. -->
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="fontFamily">sans-serif-medium</item>
         <item name="android:textFontWeight">700</item>
         <item name="android:textSize">28sp</item>
         <item name="android:lineSpacingMultiplier">1.4</item>
@@ -27,8 +29,9 @@
 
     <!-- Headline Medium — 카드 메인 제목 -->
     <style name="TextAppearance.WalkMate.HeadlineMedium" parent="TextAppearance.Material3.HeadlineMedium">
-        <item name="android:fontFamily">@font/pretendard</item>
-        <item name="fontFamily">@font/pretendard</item>
+        <!-- Pretendard 활성화: Week 7 — ttf 번들 후 @font/pretendard로 전환. mapping-rationale.md 참조. -->
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="fontFamily">sans-serif-medium</item>
         <item name="android:textFontWeight">700</item>
         <item name="android:textSize">22sp</item>
         <item name="android:lineSpacingMultiplier">1.4</item>
@@ -36,8 +39,9 @@
 
     <!-- Title Large — Card 헤더, 섹션 -->
     <style name="TextAppearance.WalkMate.TitleLarge" parent="TextAppearance.Material3.TitleLarge">
-        <item name="android:fontFamily">@font/pretendard</item>
-        <item name="fontFamily">@font/pretendard</item>
+        <!-- Pretendard 활성화: Week 7 — ttf 번들 후 @font/pretendard로 전환. mapping-rationale.md 참조. -->
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="fontFamily">sans-serif-medium</item>
         <item name="android:textFontWeight">600</item>
         <item name="android:textSize">18sp</item>
         <item name="android:lineSpacingMultiplier">1.4</item>
@@ -45,8 +49,9 @@
 
     <!-- Title Medium — 카드 부제 -->
     <style name="TextAppearance.WalkMate.TitleMedium" parent="TextAppearance.Material3.TitleMedium">
-        <item name="android:fontFamily">@font/pretendard</item>
-        <item name="fontFamily">@font/pretendard</item>
+        <!-- Pretendard 활성화: Week 7 — ttf 번들 후 @font/pretendard로 전환. mapping-rationale.md 참조. -->
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="fontFamily">sans-serif-medium</item>
         <item name="android:textFontWeight">600</item>
         <item name="android:textSize">15sp</item>
         <item name="android:lineSpacingMultiplier">1.5</item>
@@ -54,8 +59,9 @@
 
     <!-- Body Large — 본문 -->
     <style name="TextAppearance.WalkMate.BodyLarge" parent="TextAppearance.Material3.BodyLarge">
-        <item name="android:fontFamily">@font/pretendard</item>
-        <item name="fontFamily">@font/pretendard</item>
+        <!-- Pretendard 활성화: Week 7 — ttf 번들 후 @font/pretendard로 전환. mapping-rationale.md 참조. -->
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="fontFamily">sans-serif-medium</item>
         <item name="android:textFontWeight">400</item>
         <item name="android:textSize">16sp</item>
         <item name="android:lineSpacingMultiplier">1.5</item>
@@ -63,8 +69,9 @@
 
     <!-- Body Medium — 보조 본문, 설명 -->
     <style name="TextAppearance.WalkMate.BodyMedium" parent="TextAppearance.Material3.BodyMedium">
-        <item name="android:fontFamily">@font/pretendard</item>
-        <item name="fontFamily">@font/pretendard</item>
+        <!-- Pretendard 활성화: Week 7 — ttf 번들 후 @font/pretendard로 전환. mapping-rationale.md 참조. -->
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="fontFamily">sans-serif-medium</item>
         <item name="android:textFontWeight">400</item>
         <item name="android:textSize">14sp</item>
         <item name="android:lineSpacingMultiplier">1.5</item>
@@ -72,8 +79,9 @@
 
     <!-- Body Small — 캡션, 약관, 라벨 보조 -->
     <style name="TextAppearance.WalkMate.BodySmall" parent="TextAppearance.Material3.BodySmall">
-        <item name="android:fontFamily">@font/pretendard</item>
-        <item name="fontFamily">@font/pretendard</item>
+        <!-- Pretendard 활성화: Week 7 — ttf 번들 후 @font/pretendard로 전환. mapping-rationale.md 참조. -->
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="fontFamily">sans-serif-medium</item>
         <item name="android:textFontWeight">400</item>
         <item name="android:textSize">12sp</item>
         <item name="android:lineSpacingMultiplier">1.5</item>
@@ -81,8 +89,9 @@
 
     <!-- Label Large — Button, Chip 텍스트 -->
     <style name="TextAppearance.WalkMate.LabelLarge" parent="TextAppearance.Material3.LabelLarge">
-        <item name="android:fontFamily">@font/pretendard</item>
-        <item name="fontFamily">@font/pretendard</item>
+        <!-- Pretendard 활성화: Week 7 — ttf 번들 후 @font/pretendard로 전환. mapping-rationale.md 참조. -->
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="fontFamily">sans-serif-medium</item>
         <item name="android:textFontWeight">600</item>
         <item name="android:textSize">14sp</item>
         <item name="android:letterSpacing">0.01</item>
@@ -90,16 +99,18 @@
 
     <!-- Label Medium — BottomNav 라벨 -->
     <style name="TextAppearance.WalkMate.LabelMedium" parent="TextAppearance.Material3.LabelMedium">
-        <item name="android:fontFamily">@font/pretendard</item>
-        <item name="fontFamily">@font/pretendard</item>
+        <!-- Pretendard 활성화: Week 7 — ttf 번들 후 @font/pretendard로 전환. mapping-rationale.md 참조. -->
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="fontFamily">sans-serif-medium</item>
         <item name="android:textFontWeight">500</item>
         <item name="android:textSize">12sp</item>
     </style>
 
     <!-- Step Counter — 큰 숫자 표시 (홈 7,812 보) -->
     <style name="TextAppearance.WalkMate.StepCounter" parent="TextAppearance.Material3.DisplayLarge">
-        <item name="android:fontFamily">@font/pretendard</item>
-        <item name="fontFamily">@font/pretendard</item>
+        <!-- Pretendard 활성화: Week 7 — ttf 번들 후 @font/pretendard로 전환. mapping-rationale.md 참조. -->
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="fontFamily">sans-serif-medium</item>
         <item name="android:textFontWeight">800</item>
         <item name="android:textSize">40sp</item>
         <item name="android:fontFeatureSettings">"tnum"</item>
