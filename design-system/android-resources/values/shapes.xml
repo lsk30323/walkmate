@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- ================================================================== -->
+    <!-- Shape Appearance — Tailwind 매핑                                     -->
+    <!-- rounded-xl=12dp, rounded-2xl=16dp, rounded-3xl=24dp                  -->
+    <!-- ================================================================== -->
+
+    <!-- Small (12dp) — Button, Chip, 입력 필드 -->
+    <style name="ShapeAppearance.WalkMate.SmallComponent" parent="ShapeAppearance.Material3.Corner.Small">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">12dp</item>
+    </style>
+
+    <!-- Medium (16dp) — Card 기본 -->
+    <style name="ShapeAppearance.WalkMate.MediumComponent" parent="ShapeAppearance.Material3.Corner.Medium">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">16dp</item>
+    </style>
+
+    <!-- Large (24dp) — Hero Card, Bottom Sheet -->
+    <style name="ShapeAppearance.WalkMate.LargeComponent" parent="ShapeAppearance.Material3.Corner.Large">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">24dp</item>
+    </style>
+
+    <!-- Bottom Sheet — 상단만 둥글게 -->
+    <style name="ShapeAppearance.WalkMate.BottomSheet" parent="ShapeAppearance.Material3.Corner.Large">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopLeft">24dp</item>
+        <item name="cornerSizeTopRight">24dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+    </style>
+
+    <!-- Pill (999dp ~ rounded-full) — HC 배지, Avatar, 기간 chip -->
+    <style name="ShapeAppearance.WalkMate.Pill" parent="ShapeAppearance.Material3.Corner.Full">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">999dp</item>
+    </style>
+
+</resources>

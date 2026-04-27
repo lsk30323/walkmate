@@ -1,0 +1,9 @@
+{
+  "name": "projects/6095358543800927149",
+  "origin": "STITCH",
+  "projectType": "PROJECT_DESIGN",
+  "title": "WalkMate Reference",
+  "visibility": "PRIVATE",
+  "createdVia": "claude-code mcp__stitch__create_project",
+  "purpose": "Reference Material 3 design system derive for Korean walking healthcare app. Used as sanity check for manual colors.xml/themes.xml authoring."
+}

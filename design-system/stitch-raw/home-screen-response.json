@@ -1,0 +1,38 @@
+{
+  "projectId": "6095358543800927149",
+  "sessionId": "16188795764086536423",
+  "screenId": "51f40b21de814386ae2d82cc7b513453",
+  "name": "projects/6095358543800927149/screens/51f40b21de814386ae2d82cc7b513453",
+  "title": "WalkMate Home",
+  "width": "780",
+  "height": "2098",
+  "agentType": "PRO_AGENT",
+  "status": "COMPLETE",
+  "modelId": "GEMINI_3_FLASH",
+  "deviceType": "MOBILE",
+  "designSystemAsset": "assets/8613951316237647150",
+  "htmlCode": {
+    "downloadUrl": "https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ7Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpaCiVodG1sXzA4OGQyNGU3YjVkYTRiMzRhMzkxMTJhMmVlNWFmY2ZiEgsSBxDltMzbkwoYAZIBIwoKcHJvamVjdF9pZBIVQhM2MDk1MzU4NTQzODAwOTI3MTQ5&filename=&opi=96797242",
+    "mimeType": "text/html",
+    "name": "projects/6095358543800927149/files/c3315f7cd73645a2ac8e11ad5ed260fe"
+  },
+  "screenshot": {
+    "downloadUrl": "https://lh3.googleusercontent.com/aida/ADBb0ui5YMOfKj2eGe9lKPuKQOHB4MHl9KomqpznoMp5C95CmoCpvLH1XpP9OZKCVX09EpH0-Lndie54Xg1DoRSGuAzHsHrRXHcst1Mzjh7vq0Jf15qVDwNnwWMKPFV55n2dxoZ8S4xIvvCduhGD41fa0ZytuFVNUdGtuuswm9V2lCmB77UXdjm-x1DYNqFWoNL08y03-PQlTdLrbAELHy055HA5qK_8LUjoZcmsEbNxAYLgJzTwSCNrophgMdU",
+    "name": "projects/6095358543800927149/files/1c127a669d664db7998db739f166e9f5"
+  },
+  "verification": {
+    "primaryRetainedAsSeed": true,
+    "containerTokensObservedInScreen": [
+      "primaryContainer for hero step count card",
+      "secondaryContainer hint for ranking accent",
+      "surfaceContainer for weekly chart card",
+      "surface for bottom nav background"
+    ],
+    "createdAt": "2026-04-25T08:51:00+09:00"
+  },
+  "suggestionsFromStitch": [
+    "Design the Ranking screen",
+    "Add a detailed step tracking view",
+    "Change the chart to a monthly view"
+  ]
+}

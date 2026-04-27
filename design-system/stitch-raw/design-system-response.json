@@ -1,0 +1,28 @@
+{
+  "name": "assets/8613951316237647150",
+  "version": "1",
+  "designSystem": {
+    "displayName": "WalkMate Reference DS",
+    "theme": {
+      "bodyFont": "INTER",
+      "colorMode": "LIGHT",
+      "colorVariant": "TONAL_SPOT",
+      "customColor": "#16a34a",
+      "designMd": "WalkMate is a Korean healthcare walking app for office workers. Primary green = walking domain, amber = ranking/achievement, blue = location/GPS, rose = stop/error. Calm, trustworthy, daily-use feel. Cards with soft elevation, rounded 12-16dp. Mobile-first, single-handed reach. Korean text uses Pretendard (handled at platform layer).",
+      "headlineFont": "INTER",
+      "labelFont": "INTER",
+      "overrideNeutralColor": "#0f172a",
+      "overridePrimaryColor": "#16a34a",
+      "overrideSecondaryColor": "#fbbf24",
+      "overrideTertiaryColor": "#60a5fa",
+      "roundness": "ROUND_TWELVE"
+    }
+  },
+  "verification": {
+    "primaryRetainedAsSeed": true,
+    "overridesAccepted": true,
+    "createdAt": "2026-04-25T08:50:00+09:00",
+    "createdVia": "claude-code mcp__stitch__create_design_system",
+    "projectId": "6095358543800927149"
+  }
+}
