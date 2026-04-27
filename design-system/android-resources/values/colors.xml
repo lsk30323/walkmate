@@ -20,8 +20,10 @@
     <color name="md_theme_light_onSecondaryContainer">#FF3B2A05</color>
 
     <!-- Tertiary (위치/GPS / blue) -->
+    <!-- onTertiary는 dark text로 — blue-400은 tone 70 수준이라 white text 시 2.54:1 (WCAG fail).
+         M3 표준 tone 80 tertiary는 dark onTertiary 권장. blue-950 #0B2540로 통일 → 6.10:1 통과. -->
     <color name="md_theme_light_tertiary">#FF60A5FA</color>
-    <color name="md_theme_light_onTertiary">#FFFFFFFF</color>
+    <color name="md_theme_light_onTertiary">#FF0B2540</color>
     <color name="md_theme_light_tertiaryContainer">#FFDBEAFE</color>
     <color name="md_theme_light_onTertiaryContainer">#FF0B2540</color>
 

@@ -1,0 +1,56 @@
+{
+  "designSystem": {
+    "displayName": "WalkMate Reference DS v2",
+    "theme": {
+      "bodyFont": "INTER",
+      "colorMode": "LIGHT",
+      "colorVariant": "TONAL_SPOT",
+      "customColor": "#16a34a",
+      "designMd": "WalkMate v2 — Korean walking healthcare app for office workers (Workon recruiting target).\n\nBrand: emerald primary (#16A34A) for walking domain, amber (#FBBF24) for ranking achievement, blue (#60A5FA) for location/GPS, rose (#EF4444) for stop/error.\n\nKey decisions captured in mapping-rationale.md:\n- DynamicColors disabled (preserve emerald brand identity)\n- Pretendard Variable font for Korean readability (line-height 1.5)\n- 3-tier corner radii: 12dp Button, 16dp Card, 24dp Hero/BottomSheet\n- onTertiary uses dark text #0B2540 (not white) for WCAG AA contrast\n- onPrimary white kept at 3.30:1 — accepted trade-off for brand vibrancy (M3 baseline emerald-700 darker would lose brand)\n\nAudit: 23 custom domain tokens (route/location/HC/ranking/step/chart) + 34 M3 tokens, light + dark parity verified.",
+      "headlineFont": "INTER",
+      "labelFont": "INTER",
+      "overrideNeutralColor": "#0f172a",
+      "overridePrimaryColor": "#16a34a",
+      "overrideSecondaryColor": "#fbbf24",
+      "overrideTertiaryColor": "#60a5fa",
+      "roundness": "ROUND_TWELVE"
+    }
+  },
+  "name": "projects/6095358543800927149/sessions/8498058501307595878",
+  "submittedExtras": {
+    "spacingDictionary": {
+      "xs": "4px",
+      "sm": "8px",
+      "md": "12px",
+      "lg": "16px",
+      "xl": "20px",
+      "2xl": "24px",
+      "3xl": "32px",
+      "screen-padding": "20px",
+      "card-gap": "16px",
+      "section-gap": "24px"
+    },
+    "typographyDictionary": {
+      "display-large": {"fontFamily": "Pretendard", "fontSize": "57px", "fontWeight": "700", "lineHeight": "1.4", "letterSpacing": "-0.02em"},
+      "headline-large": {"fontFamily": "Pretendard", "fontSize": "28px", "fontWeight": "700", "lineHeight": "1.4", "letterSpacing": "-0.01em"},
+      "headline-medium": {"fontFamily": "Pretendard", "fontSize": "22px", "fontWeight": "700", "lineHeight": "1.4"},
+      "title-large": {"fontFamily": "Pretendard", "fontSize": "18px", "fontWeight": "600", "lineHeight": "1.4"},
+      "title-medium": {"fontFamily": "Pretendard", "fontSize": "15px", "fontWeight": "600", "lineHeight": "1.5"},
+      "body-large": {"fontFamily": "Pretendard", "fontSize": "16px", "fontWeight": "400", "lineHeight": "1.5"},
+      "body-medium": {"fontFamily": "Pretendard", "fontSize": "14px", "fontWeight": "400", "lineHeight": "1.5"},
+      "body-small": {"fontFamily": "Pretendard", "fontSize": "12px", "fontWeight": "400", "lineHeight": "1.5"},
+      "label-large": {"fontFamily": "Pretendard", "fontSize": "14px", "fontWeight": "600", "letterSpacing": "0.01em"},
+      "label-medium": {"fontFamily": "Pretendard", "fontSize": "12px", "fontWeight": "500"},
+      "step-counter": {"fontFamily": "Pretendard", "fontSize": "40px", "fontWeight": "800", "lineHeight": "1.0", "letterSpacing": "-0.02em"}
+    }
+  },
+  "verification": {
+    "updatedAt": "2026-04-25T08:55:00+09:00",
+    "previousVersion": "stitch-raw/design-system-response.json (v1)",
+    "displayNameUpdated": "Reference DS → Reference DS v2",
+    "designMdUpdated": "audit notes + tradeoff rationale appended",
+    "overridesPreserved": true,
+    "spacingTypographyEchoInResponse": false,
+    "note": "Stitch response schema does not echo spacing/typography dictionaries; assumed stored. Authoritative source for these is type.xml + Tailwind walkmate-ui.html."
+  }
+}

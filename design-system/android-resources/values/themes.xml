@@ -126,9 +126,9 @@
         <item name="itemActiveIndicatorStyle">@style/Widget.Material3.BottomNavigationView.ActiveIndicator</item>
     </style>
 
-    <!-- Bottom Sheet (산책 종료 시트) -->
+    <!-- Bottom Sheet (산책 종료 시트) — 상단 2개 코너만 24dp 라운드 -->
     <style name="Widget.WalkMate.BottomSheet" parent="Widget.Material3.BottomSheet">
-        <item name="shapeAppearance">@style/ShapeAppearance.WalkMate.LargeComponent</item>
+        <item name="shapeAppearance">@style/ShapeAppearance.WalkMate.BottomSheet</item>
     </style>
 
     <!-- Pill Chip (HC 배지, 랭킹 기간) -->
