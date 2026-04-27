@@ -1,0 +1,398 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>WalkMate 의사결정 도우미</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Pretendard", "Apple SD Gothic Neo", system-ui, sans-serif; }
+  .card { transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease; }
+  .card:hover { transform: translateY(-3px); box-shadow: 0 14px 30px -10px rgba(0,0,0,.18); }
+  .card.selected { transform: translateY(-3px); box-shadow: 0 18px 40px -10px rgba(0,0,0,.25); }
+  .pill { font-size: 11px; padding: 2px 8px; border-radius: 999px; display: inline-block; }
+  .gain { color: #047857; }
+  .lose { color: #b91c1c; }
+  .hidden-init { display:none; }
+  .gauge { height: 8px; border-radius: 999px; background: #e5e7eb; overflow: hidden; }
+  .gauge>span { display:block; height:100%; }
+  details > summary { list-style: none; cursor: pointer; }
+  details > summary::-webkit-details-marker { display: none; }
+</style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+<header class="border-b bg-white">
+  <div class="max-w-5xl mx-auto px-6 py-5 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <div class="w-9 h-9 rounded-lg bg-slate-900 text-white grid place-items-center font-bold">W</div>
+      <div>
+        <div class="font-semibold text-slate-900">WalkMate 의사결정 도우미</div>
+        <div class="text-xs text-slate-500">핵심 시그널 1개를 정하는 메타 결정</div>
+      </div>
+    </div>
+    <a href="https://github.com/lsk30323/walkmate" class="text-xs text-slate-500 hover:text-slate-900">github.com/lsk30323/walkmate ↗</a>
+  </div>
+</header>
+
+<main class="max-w-5xl mx-auto px-6 py-10">
+
+  <section class="mb-10">
+    <p class="text-xs font-semibold tracking-wider text-emerald-600 uppercase">Step 1 — 큰 질문</p>
+    <h1 class="mt-2 text-3xl md:text-4xl font-bold text-slate-900 leading-tight">
+      면접관이 GitHub을 30초 본 뒤<br/>머릿속에 박혀야 할 <span class="bg-yellow-200 px-1 rounded">한 줄</span>은?
+    </h1>
+    <p class="mt-3 text-slate-600 max-w-2xl">
+      이 1개가 결정되면 README 첫 단락 / 면접 답변 #1 톤 / 이력서 한 줄 / Compose 도입 비중 등 <strong>7개 하위 결정이 자동 정렬</strong>됩니다.
+      카드를 클릭해서 각 선택의 결과를 직접 보세요.
+    </p>
+  </section>
+
+  <section class="mb-12">
+    <p class="text-xs font-semibold tracking-wider text-emerald-600 uppercase mb-4">Step 2 — 4개 시그널 비교</p>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5" id="cards"></div>
+  </section>
+
+  <section id="detail-section" class="mb-12 hidden-init">
+    <p class="text-xs font-semibold tracking-wider text-emerald-600 uppercase mb-3">Step 3 — 선택 결과</p>
+    <div id="detail" class="bg-white border-2 rounded-2xl p-6 md:p-8"></div>
+  </section>
+
+  <section class="mb-12">
+    <p class="text-xs font-semibold tracking-wider text-emerald-600 uppercase mb-4">Step 4 — 결정이 어렵다면 자가 점검</p>
+    <div class="bg-white border rounded-2xl p-6 md:p-8 space-y-4" id="checks"></div>
+    <div id="check-result" class="mt-4 hidden-init bg-amber-50 border border-amber-200 rounded-2xl p-5 text-sm"></div>
+  </section>
+
+  <section class="mb-16">
+    <p class="text-xs font-semibold tracking-wider text-emerald-600 uppercase mb-4">Step 5 — 비교 매트릭스</p>
+    <div class="overflow-x-auto bg-white border rounded-2xl">
+      <table class="min-w-full text-sm">
+        <thead class="bg-slate-50 text-slate-600 text-left">
+          <tr>
+            <th class="px-4 py-3 font-medium">시그널</th>
+            <th class="px-4 py-3 font-medium">임팩트</th>
+            <th class="px-4 py-3 font-medium">위험도</th>
+            <th class="px-4 py-3 font-medium">신입 적합도</th>
+            <th class="px-4 py-3 font-medium">JD 정합 (워크온)</th>
+          </tr>
+        </thead>
+        <tbody id="matrix"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="mb-16">
+    <p class="text-xs font-semibold tracking-wider text-emerald-600 uppercase mb-4">Step 6 — 결정 후 자동 정렬되는 7가지</p>
+    <div class="bg-white border rounded-2xl p-6">
+      <div class="font-mono text-xs whitespace-pre leading-relaxed text-slate-700 overflow-x-auto">
+[ 핵심 시그널 1개 결정 ]
+            │
+   ┌────────┼────────┐
+   ▼        ▼        ▼
+README   Top 3    면접 답변
+첫단락   차별화    #1 톤
+   │        │
+   ▼        ▼
+ADR     Week별
+우선순위  강조점
+   │
+   ▼
+이력서 1줄 + Compose 비중
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="border-t bg-white">
+  <div class="max-w-5xl mx-auto px-6 py-6 text-xs text-slate-500 flex flex-wrap items-center justify-between gap-3">
+    <div>WalkMate 사전 검토 · 7명 가상 팀 + devils-advocate 종합 결과 기반</div>
+    <div>Local file · 변경 시 새로고침</div>
+  </div>
+</footer>
+
+<script>
+const SIGNALS = [
+  {
+    id: 'A', color: 'emerald',
+    title: '한국 도메인 사고력',
+    icon: '🇰🇷',
+    tagline: '"한국 사용자만 보고 결정한 신입"',
+    impact: 5, risk: 2, fitness: 5, jd: 5,
+    readme: '"WalkMate는 워크온의 복제가 아니라, 한국 사용자가 겪는 **Health Connect 미통합 + 재부팅/타임존 문제**를 푼 실험입니다. StepSourceResolver와 한국 도로명 라벨로 한국 사용자에게만 필요한 디테일을 챙겼습니다."',
+    interview: '"한국 사용자 대상 헬스케어 앱이라 한국 정확도가 필요했고, Naver Geocoding API로 산책 종료 라벨을 받습니다. 외국 면접관에겐 \'address geocoding accuracy advantage for Korean roads\' 키워드로 어필합니다."',
+    gain: ['워크온/스왈라비 도메인 정합 ★★★★★', 'Naver Geocoding 결정이 의미 부여됨', '신입에 가장 안전한 포지션'],
+    lose: ['Compose/멀티모듈/KMP 같은 "기술 폭" 어필 약화', '외국계/글로벌 회사 어필 약함', 'ADR-006 외 ADR은 보조로 격하'],
+    bestFor: '워크온 채용공고 + 본 앱 사용 경험 + 한국 시장 한정 지원',
+  },
+  {
+    id: 'B', color: 'blue',
+    title: 'Android 플랫폼 깊이',
+    icon: '📱',
+    tagline: '"신입인데 OS 디테일 깊다"',
+    impact: 5, risk: 3, fitness: 4, jd: 4,
+    readme: '"Android 14 FGS Type, Step Counter baseline, Doze/Standby — 신입 포트폴리오에서 OS 레벨 디테일을 외면한 사례가 다수임을 보고 만든 앱. 모든 백그라운드 동작을 검증했습니다."',
+    interview: '"FGS Type은 Android 14에서 명시 안 하면 즉시 크래시고, Step Counter는 재부팅 시 0으로 초기화됩니다. 두 함정을 baseline 스키마와 BOOT_COUNT 비교로 막았습니다."',
+    gain: ['"신입인데 OS 디테일 안다" 강한 시그널', 'FGS Type/baseline/Doze 답변 만점', '면접에서 깊이 어필'],
+    lose: ['도메인 정합 어필 약함', '백엔드는 "있는 정도"로 격하됨', '디테일 답변 못 외우면 자살골'],
+    bestFor: '디테일 답변에 자신 있고, 학습 시간 충분한 경우',
+  },
+  {
+    id: 'C', color: 'orange',
+    title: '풀스택 실행력',
+    icon: '🛠️',
+    tagline: '"혼자 끝까지 만들어봤다"',
+    impact: 4, risk: 4, fitness: 3, jd: 3,
+    readme: '"Android(Kotlin/MVVM) + Backend(Express/JWT) + 배포(Render)까지 혼자서 production-ready 수준으로 만들어봤습니다 — 그 과정의 보안 결함 3개와 해결을 README에 기록."',
+    interview: '"백엔드 보안 결함 3개를 직접 식별했어요. rate-limit, 걸음수 위변조 방어, OkHttp Authenticator 재진입 방지 — 신입이 백엔드 직접 만들면 흔히 놓치는 부분입니다."',
+    gain: ['"신입인데 풀스택 가능" 시그널', 'Backend 직접 구축이 메인 자랑거리'],
+    lose: ['"왜 안드로이드 신입이 풀스택?" 의심 가능', '"둘 다 어설프지 않냐" 평가 위험', 'Android 깊이 어필 약화'],
+    bestFor: '안드로이드 + 백엔드 둘 다 자신 있는 경우',
+  },
+  {
+    id: 'D', color: 'purple',
+    title: '의사결정 품질',
+    icon: '📚',
+    tagline: '"신입인데 사고 깊이 다르다"',
+    impact: 4, risk: 3, fitness: 3, jd: 3,
+    readme: '"신입 포트폴리오는 흔히 \'기능 만들었다\'에서 끝나지만, WalkMate는 6개 ADR + 7명 가상 팀 리뷰 + 트레이드오프 정량 비교로 의사결정의 흔적을 남긴 프로젝트입니다."',
+    interview: '"Naver Maps 채택을 7명 가상 팀 토론 후 6:1 비대칭 토론으로 검증했고, ADR-006에 옵션 4개 비교 + 게이트 4조건을 명시했습니다."',
+    gain: ['"시니어급 사고 보유" 시그널', 'ADR 6개 + 트레이드오프 매트릭스 만점'],
+    lose: ['"코드 평범하면 말만 잘함" 평가 위험', '시니어 시그널이라 신입엔 과한 인상 가능', '면접관에 따라 "허세" 평가 가능'],
+    bestFor: '코드 자체에도 자신 있고 고차원 사고 어필하고 싶을 때',
+  },
+];
+
+const cardsEl = document.getElementById('cards');
+const detailEl = document.getElementById('detail');
+const detailSection = document.getElementById('detail-section');
+let selectedId = null;
+
+function colorMap(c) {
+  const m = {
+    emerald: { border: 'border-emerald-300', bg: 'bg-emerald-50', text: 'text-emerald-700', solid: 'bg-emerald-500', soft: 'bg-emerald-100' },
+    blue:    { border: 'border-blue-300',    bg: 'bg-blue-50',    text: 'text-blue-700',    solid: 'bg-blue-500',    soft: 'bg-blue-100' },
+    orange:  { border: 'border-orange-300',  bg: 'bg-orange-50',  text: 'text-orange-700',  solid: 'bg-orange-500',  soft: 'bg-orange-100' },
+    purple:  { border: 'border-purple-300',  bg: 'bg-purple-50',  text: 'text-purple-700',  solid: 'bg-purple-500',  soft: 'bg-purple-100' },
+  };
+  return m[c];
+}
+
+function renderCards() {
+  cardsEl.innerHTML = SIGNALS.map(s => {
+    const c = colorMap(s.color);
+    return `
+      <button data-id="${s.id}" class="card text-left bg-white border-2 ${c.border} rounded-2xl p-6 hover:${c.bg}">
+        <div class="flex items-start gap-4">
+          <div class="w-12 h-12 rounded-xl ${c.soft} grid place-items-center text-2xl">${s.icon}</div>
+          <div class="flex-1">
+            <div class="text-xs font-bold tracking-wider ${c.text} uppercase">옵션 ${s.id}</div>
+            <div class="font-bold text-lg text-slate-900 mt-0.5">${s.title}</div>
+            <div class="text-sm text-slate-500 mt-1">${s.tagline}</div>
+          </div>
+        </div>
+        <div class="mt-4 grid grid-cols-2 gap-2 text-xs">
+          <div>임팩트 <div class="gauge mt-1"><span class="${c.solid}" style="width:${s.impact*20}%"></span></div></div>
+          <div>위험도 <div class="gauge mt-1"><span class="${c.solid}" style="width:${s.risk*20}%"></span></div></div>
+          <div>신입 적합 <div class="gauge mt-1"><span class="${c.solid}" style="width:${s.fitness*20}%"></span></div></div>
+          <div>JD 정합 <div class="gauge mt-1"><span class="${c.solid}" style="width:${s.jd*20}%"></span></div></div>
+        </div>
+        <div class="mt-3 text-xs text-slate-400">클릭해서 결과 보기 →</div>
+      </button>
+    `;
+  }).join('');
+
+  cardsEl.querySelectorAll('.card').forEach(b => {
+    b.addEventListener('click', () => selectCard(b.dataset.id));
+  });
+}
+
+function selectCard(id) {
+  selectedId = id;
+  cardsEl.querySelectorAll('.card').forEach(b => {
+    if (b.dataset.id === id) b.classList.add('selected'); else b.classList.remove('selected');
+  });
+  const s = SIGNALS.find(x => x.id === id);
+  const c = colorMap(s.color);
+
+  detailSection.classList.remove('hidden-init');
+  detailEl.className = `bg-white border-2 ${c.border} rounded-2xl p-6 md:p-8`;
+  detailEl.innerHTML = `
+    <div class="flex items-center gap-3 mb-4">
+      <div class="w-10 h-10 rounded-xl ${c.soft} grid place-items-center text-xl">${s.icon}</div>
+      <div>
+        <div class="text-xs font-bold tracking-wider ${c.text} uppercase">옵션 ${s.id} 선택</div>
+        <h2 class="font-bold text-xl text-slate-900">${s.title}</h2>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+      <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-4">
+        <div class="text-xs font-bold text-emerald-700 mb-2">✓ 자동으로 얻는 것</div>
+        <ul class="text-sm text-slate-800 space-y-1.5 list-disc list-inside">
+          ${s.gain.map(x => `<li>${x}</li>`).join('')}
+        </ul>
+      </div>
+      <div class="bg-rose-50 border border-rose-200 rounded-xl p-4">
+        <div class="text-xs font-bold text-rose-700 mb-2">✗ 자동으로 포기하는 것</div>
+        <ul class="text-sm text-slate-800 space-y-1.5 list-disc list-inside">
+          ${s.lose.map(x => `<li>${x}</li>`).join('')}
+        </ul>
+      </div>
+    </div>
+
+    <div class="space-y-4">
+      <div>
+        <div class="text-xs font-bold text-slate-500 mb-2">📄 README 첫 단락 (15초 임팩트)</div>
+        <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 text-sm text-slate-800 leading-relaxed">
+          ${s.readme}
+        </div>
+      </div>
+      <div>
+        <div class="text-xs font-bold text-slate-500 mb-2">🎤 면접 답변 핵심 (30초)</div>
+        <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 text-sm text-slate-800 leading-relaxed">
+          ${s.interview}
+        </div>
+      </div>
+      <div>
+        <div class="text-xs font-bold text-slate-500 mb-2">👤 가장 잘 맞는 사람</div>
+        <div class="text-sm text-slate-700 bg-amber-50 border border-amber-200 rounded-xl p-4">
+          ${s.bestFor}
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-6 flex flex-wrap gap-2">
+      <button onclick="document.getElementById('checks').scrollIntoView({behavior:'smooth'})" class="px-4 py-2 rounded-lg bg-slate-900 text-white text-sm font-medium hover:bg-slate-700">
+        자가 점검으로 검증 →
+      </button>
+      <button onclick="window.scrollTo({top:0, behavior:'smooth'})" class="px-4 py-2 rounded-lg bg-slate-100 text-slate-700 text-sm font-medium hover:bg-slate-200">
+        ↑ 위로
+      </button>
+    </div>
+  `;
+  detailSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function renderMatrix() {
+  const m = document.getElementById('matrix');
+  m.innerHTML = SIGNALS.map(s => {
+    const c = colorMap(s.color);
+    const stars = n => '★'.repeat(n) + '☆'.repeat(5-n);
+    return `
+      <tr class="border-t">
+        <td class="px-4 py-3">
+          <div class="flex items-center gap-2">
+            <span class="w-7 h-7 rounded-md ${c.soft} grid place-items-center text-sm">${s.icon}</span>
+            <span class="font-medium text-slate-900">${s.id}. ${s.title}</span>
+          </div>
+        </td>
+        <td class="px-4 py-3 ${c.text}">${stars(s.impact)}</td>
+        <td class="px-4 py-3 text-rose-600">${stars(s.risk)}</td>
+        <td class="px-4 py-3 text-slate-700">${stars(s.fitness)}</td>
+        <td class="px-4 py-3 text-slate-700">${stars(s.jd)}</td>
+      </tr>
+    `;
+  }).join('');
+}
+
+const CHECKS = [
+  { q: '워크온 본 앱을 1주 이상 사용해본 적 있다.', hint: '없으면 7일 사용 후 다시 결정. ADR-000에 본 앱 사용 경험 필수 명시.' },
+  { q: '워크온 채용공고에 "Naver Maps SDK"가 명시되어 있는지 확인했다.', hint: '확인 안 했으면 Day 0 8개 채널 체크리스트 먼저 (jd-matching-checklist.md).' },
+  { q: '면접관이 "자랑할 게 한 가지면?"이라고 물으면 5초 안에 한 문장 답변 가능하다.', hint: '못하면 옵션 결정 후 interview-prep.md #1을 다시 작성해서 외우기.' },
+  { q: '내 다른 경험(학교/인턴/사이드 프로젝트)과 가장 일관성 있는 시그널이 어떤 것인지 안다.', hint: '갑자기 새로운 시그널 = 면접관 "왜 이게 잘함?" 의심. 일관성 우선.' },
+  { q: '외국계/글로벌 회사도 함께 지원할 계획이다.', hint: 'YES면 옵션 A는 부담. B/C/D 우선 고려.' },
+];
+
+function renderChecks() {
+  const el = document.getElementById('checks');
+  el.innerHTML = `
+    <div class="text-sm text-slate-600 mb-4">
+      5개 항목에 솔직하게 ✓/✗ 체크. 답변에 따라 추천 시그널이 자동 계산됩니다.
+    </div>
+    <div class="space-y-3">
+      ${CHECKS.map((c,i) => `
+        <label class="flex items-start gap-3 p-3 rounded-lg border hover:bg-slate-50 cursor-pointer">
+          <input type="checkbox" data-i="${i}" class="mt-1 chk" />
+          <div class="flex-1">
+            <div class="text-sm text-slate-800">${c.q}</div>
+            <details class="mt-1">
+              <summary class="text-xs text-slate-400 hover:text-slate-700">힌트 보기</summary>
+              <div class="text-xs text-slate-500 mt-1 pl-3 border-l-2 border-slate-200">${c.hint}</div>
+            </details>
+          </div>
+        </label>
+      `).join('')}
+    </div>
+    <div class="mt-4">
+      <button id="recommend-btn" class="px-4 py-2 rounded-lg bg-emerald-500 text-white text-sm font-medium hover:bg-emerald-600">
+        결과 보기
+      </button>
+    </div>
+  `;
+  document.getElementById('recommend-btn').addEventListener('click', recommend);
+}
+
+function recommend() {
+  const checks = [...document.querySelectorAll('.chk')].map(c => c.checked);
+  const [walkonUsed, jdChecked, canAnswer, consistencyKnown, foreignToo] = checks;
+
+  let rec = 'A';
+  let reasons = [];
+
+  if (foreignToo) {
+    rec = 'B';
+    reasons.push('외국계도 지원 → 한국 도메인(A)은 부담. Android 깊이(B)가 안전.');
+  } else if (walkonUsed && jdChecked && canAnswer) {
+    rec = 'A';
+    reasons.push('본 앱 경험 + JD 확인 + 답변 준비 → 옵션 A 추천. 가장 안전한 신입 포지션.');
+  } else if (consistencyKnown && !foreignToo) {
+    rec = 'A';
+    reasons.push('일관성 있는 경험 + 한국 시장 한정 → 옵션 A.');
+  } else if (!walkonUsed && !jdChecked) {
+    rec = '?';
+    reasons.push('본 앱 사용 안 함 + JD 미확인 → 결정하지 말고 학습 먼저.');
+    reasons.push('Action: 워크온 본 앱 1주 사용 + jd-matching-checklist.md 8개 채널 조사 (2시간).');
+  } else {
+    rec = 'B';
+    reasons.push('도메인 사고력보다 기술 깊이가 더 안전한 차선책.');
+  }
+
+  const result = document.getElementById('check-result');
+  result.classList.remove('hidden-init');
+  if (rec === '?') {
+    result.innerHTML = `
+      <div class="font-bold text-amber-800 mb-2">🚧 아직 결정하지 마세요</div>
+      <ul class="text-sm text-slate-700 space-y-1 list-disc list-inside">
+        ${reasons.map(r => `<li>${r}</li>`).join('')}
+      </ul>
+    `;
+  } else {
+    const s = SIGNALS.find(x => x.id === rec);
+    const c = colorMap(s.color);
+    result.innerHTML = `
+      <div class="flex items-center gap-3 mb-3">
+        <div class="w-10 h-10 rounded-xl ${c.soft} grid place-items-center text-xl">${s.icon}</div>
+        <div>
+          <div class="text-xs font-bold ${c.text} uppercase tracking-wider">추천 시그널</div>
+          <div class="font-bold text-lg text-slate-900">옵션 ${s.id}. ${s.title}</div>
+        </div>
+      </div>
+      <ul class="text-sm text-slate-700 space-y-1 list-disc list-inside mb-3">
+        ${reasons.map(r => `<li>${r}</li>`).join('')}
+      </ul>
+      <button onclick="selectCard('${rec}')" class="px-4 py-2 rounded-lg bg-slate-900 text-white text-sm font-medium hover:bg-slate-700">
+        옵션 ${rec} 결과 다시 보기 →
+      </button>
+    `;
+  }
+}
+
+renderCards();
+renderMatrix();
+renderChecks();
+</script>
+
+</body>
+</html>

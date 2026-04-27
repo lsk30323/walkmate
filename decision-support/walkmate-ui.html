@@ -1,0 +1,433 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>WalkMate 앱 UI 목업</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  body { font-family: -apple-system, "Pretendard", "Apple SD Gothic Neo", system-ui, sans-serif; background: #f1f5f9; }
+  .phone {
+    width: 360px;
+    height: 740px;
+    background: #fff;
+    border-radius: 36px;
+    box-shadow: 0 25px 60px -10px rgba(15,23,42,.25), 0 0 0 12px #0f172a, 0 0 0 14px #1e293b;
+    position: relative;
+    overflow: hidden;
+    flex: 0 0 auto;
+  }
+  .notch {
+    position: absolute; top: 8px; left: 50%; transform: translateX(-50%);
+    width: 110px; height: 28px; background: #0f172a; border-radius: 999px; z-index: 10;
+  }
+  .status {
+    position: absolute; top: 10px; left: 0; right: 0;
+    display: flex; justify-content: space-between; padding: 0 28px;
+    font-size: 11px; font-weight: 600; color: #0f172a; z-index: 5;
+  }
+  .screen { padding-top: 48px; height: 100%; display: flex; flex-direction: column; }
+  .nav {
+    border-top: 1px solid #e2e8f0;
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    background: #fff; padding: 8px 0 14px;
+  }
+  .nav-item { display: flex; flex-direction: column; align-items: center; gap: 2px; font-size: 10px; color: #94a3b8; }
+  .nav-item.active { color: #16a34a; }
+  .nav-icon { width: 22px; height: 22px; }
+  .ring { transform: rotate(-90deg); }
+  .ring circle { fill: none; stroke-width: 14; stroke-linecap: round; }
+  .bar { display: inline-block; background: #16a34a; border-radius: 4px 4px 0 0; }
+  .pill { display: inline-block; padding: 2px 10px; border-radius: 999px; font-size: 11px; font-weight: 600; }
+  .map-bg {
+    background:
+      radial-gradient(circle at 30% 30%, #dcfce7 0%, transparent 40%),
+      radial-gradient(circle at 70% 60%, #bbf7d0 0%, transparent 50%),
+      linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+    position: relative;
+  }
+  .road {
+    position: absolute;
+    background: #94a3b8;
+    opacity: 0.35;
+  }
+  .route-path { stroke: #16a34a; stroke-width: 5; fill: none; stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 2px 4px rgba(22,163,74,.4)); }
+  .marker { position: absolute; width: 16px; height: 16px; border-radius: 50%; border: 3px solid #fff; box-shadow: 0 2px 6px rgba(0,0,0,.2); }
+  h1.scr { font-size: 22px; font-weight: 800; color: #0f172a; }
+  .sub { font-size: 11px; color: #64748b; }
+</style>
+</head>
+<body class="min-h-screen p-8">
+
+<div class="max-w-7xl mx-auto">
+  <header class="mb-8">
+    <h1 class="text-3xl font-bold text-slate-900">WalkMate — 앱 UI 목업</h1>
+    <p class="text-slate-500 mt-1">v3 명세서 기준 4개 메인 화면 시안. 실제 구현은 Week 1-8 진행.</p>
+  </header>
+
+  <div class="flex gap-8 overflow-x-auto pb-8">
+
+    <!-- ============ 1. 홈 (걸음수 + 통계) ============ -->
+    <div>
+      <div class="phone">
+        <div class="notch"></div>
+        <div class="status"><span>9:41</span><span>●●●●  100%</span></div>
+        <div class="screen">
+          <div class="px-5 pb-2 flex items-center justify-between">
+            <div>
+              <div class="text-xs text-slate-400">2026년 4월 25일 토</div>
+              <div class="text-lg font-bold text-slate-900">안녕, 승기님 👋</div>
+            </div>
+            <div class="w-10 h-10 rounded-full bg-emerald-100 grid place-items-center text-lg">🏃</div>
+          </div>
+
+          <div class="flex-1 overflow-y-auto px-5 space-y-4">
+            <!-- 걸음수 링 -->
+            <div class="bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-3xl p-5 text-white">
+              <div class="flex items-center gap-4">
+                <svg class="ring" width="120" height="120">
+                  <circle cx="60" cy="60" r="48" stroke="rgba(255,255,255,.2)"></circle>
+                  <circle cx="60" cy="60" r="48" stroke="#fff" stroke-dasharray="301" stroke-dashoffset="60"></circle>
+                </svg>
+                <div>
+                  <div class="text-xs opacity-80">오늘 걸음수</div>
+                  <div class="text-3xl font-extrabold tabular-nums">7,812</div>
+                  <div class="text-xs opacity-80 mt-1">목표 10,000보 · 78%</div>
+                  <div class="mt-2 flex gap-3 text-xs">
+                    <span>🔥 312 kcal</span>
+                    <span>📏 5.4 km</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 데이터 소스 표시 (HC vs Sensor) - 차별화 -->
+            <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-3 flex items-center gap-2">
+              <span class="pill bg-emerald-600 text-white">HC</span>
+              <div class="text-xs text-slate-700">Health Connect 연동 중 · Samsung Health에서 가져옴</div>
+            </div>
+
+            <!-- 주간 그래프 -->
+            <div class="bg-white border border-slate-200 rounded-2xl p-4">
+              <div class="flex items-center justify-between mb-3">
+                <div class="font-bold text-slate-900">이번 주</div>
+                <div class="text-xs text-slate-400">평균 8,431보</div>
+              </div>
+              <div class="flex items-end justify-between h-24 gap-1">
+                <div class="flex flex-col items-center gap-1 flex-1">
+                  <div class="bar w-full" style="height: 50%"></div>
+                  <div class="text-[10px] text-slate-400">월</div>
+                </div>
+                <div class="flex flex-col items-center gap-1 flex-1">
+                  <div class="bar w-full" style="height: 75%"></div>
+                  <div class="text-[10px] text-slate-400">화</div>
+                </div>
+                <div class="flex flex-col items-center gap-1 flex-1">
+                  <div class="bar w-full" style="height: 60%"></div>
+                  <div class="text-[10px] text-slate-400">수</div>
+                </div>
+                <div class="flex flex-col items-center gap-1 flex-1">
+                  <div class="bar w-full" style="height: 85%"></div>
+                  <div class="text-[10px] text-slate-400">목</div>
+                </div>
+                <div class="flex flex-col items-center gap-1 flex-1">
+                  <div class="bar w-full" style="height: 90%"></div>
+                  <div class="text-[10px] text-slate-400">금</div>
+                </div>
+                <div class="flex flex-col items-center gap-1 flex-1">
+                  <div class="bar w-full" style="height: 78%; background:#22c55e"></div>
+                  <div class="text-[10px] font-bold text-emerald-700">토</div>
+                </div>
+                <div class="flex flex-col items-center gap-1 flex-1">
+                  <div class="bar w-full" style="height: 0%; background:#e2e8f0"></div>
+                  <div class="text-[10px] text-slate-300">일</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 그룹 미니 카드 -->
+            <div class="bg-white border border-slate-200 rounded-2xl p-4">
+              <div class="flex items-center justify-between">
+                <div>
+                  <div class="text-xs text-slate-400">참여 중</div>
+                  <div class="font-bold text-slate-900">사내 걷기 동호회</div>
+                </div>
+                <div class="text-right">
+                  <div class="text-xs text-slate-400">내 순위</div>
+                  <div class="font-bold text-emerald-600">3위 · 12명 중</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 바텀 네비 -->
+          <div class="nav">
+            <div class="nav-item active">
+              <svg class="nav-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M12 3l9 8h-3v9h-4v-6h-4v6H6v-9H3z"/></svg>
+              <span>홈</span>
+            </div>
+            <div class="nav-item">
+              <svg class="nav-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3C14.8 12 16.8 13 19 13v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L6 8.3V13h2V9.6l1.8-.7"/></svg>
+              <span>산책</span>
+            </div>
+            <div class="nav-item">
+              <svg class="nav-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M16 11V3H8v6H2v12h20V11h-6zM10 5h4v14h-4V5zm-6 6h4v8H4v-8zm16 8h-4v-6h4v6z"/></svg>
+              <span>랭킹</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="text-center mt-3">
+        <div class="font-semibold text-slate-900">홈</div>
+        <div class="text-xs text-slate-500">걸음수 + 통계 + 그룹 요약</div>
+      </div>
+    </div>
+
+    <!-- ============ 2. 산책 기록 (GPS) ============ -->
+    <div>
+      <div class="phone">
+        <div class="notch"></div>
+        <div class="status"><span>9:42</span><span>●●●●  100%</span></div>
+        <div class="screen">
+          <div class="flex-1 map-bg relative">
+            <!-- 도로 가짜 -->
+            <div class="road" style="top:30%; left:-10%; right:-10%; height:8px; transform:rotate(-8deg);"></div>
+            <div class="road" style="top:55%; left:-10%; right:-10%; height:6px; transform:rotate(5deg);"></div>
+            <div class="road" style="top:0; bottom:0; left:60%; width:6px;"></div>
+
+            <!-- 경로 SVG -->
+            <svg class="absolute inset-0" viewBox="0 0 360 480" preserveAspectRatio="none">
+              <path class="route-path" d="M 50 400 Q 80 350 110 320 T 180 250 T 250 200 T 280 130" />
+            </svg>
+
+            <!-- 시작 마커 -->
+            <div class="marker" style="background:#16a34a; bottom:75px; left:42px;"></div>
+            <!-- 현재 위치 마커 -->
+            <div class="marker" style="background:#3b82f6; top:115px; left:265px; animation: pulse 2s infinite;">
+              <div class="absolute inset-0 rounded-full bg-blue-400 opacity-50 animate-ping"></div>
+            </div>
+
+            <!-- 상단 종료 버튼 -->
+            <div class="absolute top-4 right-4">
+              <div class="bg-white/90 backdrop-blur rounded-full px-3 py-1.5 text-xs font-semibold text-slate-700 shadow">
+                ⏱ 32:14
+              </div>
+            </div>
+          </div>
+
+          <!-- 하단 시트 -->
+          <div class="bg-white rounded-t-3xl px-5 pt-4 pb-3 -mt-6 relative shadow-2xl">
+            <div class="w-10 h-1 rounded-full bg-slate-200 mx-auto mb-3"></div>
+            <div class="grid grid-cols-3 gap-3 mb-4">
+              <div class="text-center">
+                <div class="text-[10px] text-slate-400 uppercase tracking-wider">거리</div>
+                <div class="text-xl font-bold tabular-nums text-slate-900">2.4<span class="text-xs text-slate-400">km</span></div>
+              </div>
+              <div class="text-center border-x border-slate-100">
+                <div class="text-[10px] text-slate-400 uppercase tracking-wider">시간</div>
+                <div class="text-xl font-bold tabular-nums text-slate-900">32:14</div>
+              </div>
+              <div class="text-center">
+                <div class="text-[10px] text-slate-400 uppercase tracking-wider">칼로리</div>
+                <div class="text-xl font-bold tabular-nums text-slate-900">128<span class="text-xs text-slate-400">kcal</span></div>
+              </div>
+            </div>
+
+            <div class="flex gap-2 mb-3">
+              <button class="flex-1 bg-slate-100 text-slate-700 rounded-full py-3 text-sm font-semibold">⏸ 일시정지</button>
+              <button class="flex-1 bg-rose-500 text-white rounded-full py-3 text-sm font-semibold shadow-md shadow-rose-500/30">⏹ 종료</button>
+            </div>
+
+            <div class="bg-slate-50 rounded-xl px-3 py-2 text-[11px] text-slate-500 flex items-center gap-2">
+              📍 출발: <span class="text-slate-700 font-medium">서울 송파구 석촌호수로</span>
+            </div>
+          </div>
+
+          <div class="nav">
+            <div class="nav-item">
+              <svg class="nav-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M12 3l9 8h-3v9h-4v-6h-4v6H6v-9H3z"/></svg>
+              <span>홈</span>
+            </div>
+            <div class="nav-item active">
+              <svg class="nav-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3C14.8 12 16.8 13 19 13v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L6 8.3V13h2V9.6l1.8-.7"/></svg>
+              <span>산책</span>
+            </div>
+            <div class="nav-item">
+              <svg class="nav-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M16 11V3H8v6H2v12h20V11h-6zM10 5h4v14h-4V5zm-6 6h4v8H4v-8zm16 8h-4v-6h4v6z"/></svg>
+              <span>랭킹</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="text-center mt-3">
+        <div class="font-semibold text-slate-900">산책</div>
+        <div class="text-xs text-slate-500">GPS 경로 + Polyline + Naver 도로명</div>
+      </div>
+    </div>
+
+    <!-- ============ 3. 그룹 Top 10 랭킹 ============ -->
+    <div>
+      <div class="phone">
+        <div class="notch"></div>
+        <div class="status"><span>9:43</span><span>●●●●  100%</span></div>
+        <div class="screen">
+          <div class="px-5 pb-3">
+            <div class="text-xs text-slate-400 mb-1">그룹</div>
+            <h1 class="scr">사내 걷기 동호회</h1>
+            <div class="sub mt-1">12명 · 이번 주 (월~일)</div>
+          </div>
+
+          <div class="px-5">
+            <div class="flex gap-1 mb-4">
+              <button class="pill bg-emerald-500 text-white">주간</button>
+              <button class="pill bg-slate-100 text-slate-500">월간</button>
+              <button class="pill bg-slate-100 text-slate-500">전체</button>
+            </div>
+          </div>
+
+          <!-- 포디움 -->
+          <div class="px-5 mb-4">
+            <div class="flex items-end justify-center gap-2">
+              <div class="text-center">
+                <div class="w-14 h-14 mx-auto rounded-full bg-slate-200 grid place-items-center text-2xl">😎</div>
+                <div class="text-[10px] mt-1 font-bold text-slate-600">박지민</div>
+                <div class="bg-slate-300 rounded-t-lg pt-2 pb-1 mt-1">
+                  <div class="text-xs font-extrabold text-slate-700">2위</div>
+                  <div class="text-[10px] text-slate-600">52.1k</div>
+                </div>
+              </div>
+              <div class="text-center">
+                <div class="w-16 h-16 mx-auto rounded-full bg-amber-200 grid place-items-center text-2xl ring-4 ring-amber-300">🥇</div>
+                <div class="text-[10px] mt-1 font-bold text-amber-700">김민수</div>
+                <div class="bg-amber-400 rounded-t-lg pt-3 pb-1 mt-1">
+                  <div class="text-sm font-extrabold text-white">1위</div>
+                  <div class="text-[10px] text-amber-50">61.4k</div>
+                </div>
+              </div>
+              <div class="text-center">
+                <div class="w-14 h-14 mx-auto rounded-full bg-emerald-100 grid place-items-center text-2xl ring-2 ring-emerald-400">🏃</div>
+                <div class="text-[10px] mt-1 font-bold text-emerald-700">나 (승기)</div>
+                <div class="bg-emerald-400 rounded-t-lg pt-1 pb-1 mt-1">
+                  <div class="text-xs font-extrabold text-white">3위</div>
+                  <div class="text-[10px] text-emerald-50">48.7k</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex-1 overflow-y-auto px-5 space-y-2">
+            <div class="text-xs text-slate-400 mb-1">4위 ~ 10위</div>
+
+            <div class="bg-white border border-slate-200 rounded-xl px-3 py-2 flex items-center gap-3">
+              <div class="w-7 h-7 rounded-full bg-slate-100 grid place-items-center text-xs font-bold text-slate-600">4</div>
+              <div class="w-9 h-9 rounded-full bg-slate-200 grid place-items-center">🧑</div>
+              <div class="flex-1 text-sm font-semibold text-slate-800">이수진</div>
+              <div class="text-sm tabular-nums font-bold text-slate-700">45,210</div>
+            </div>
+            <div class="bg-white border border-slate-200 rounded-xl px-3 py-2 flex items-center gap-3">
+              <div class="w-7 h-7 rounded-full bg-slate-100 grid place-items-center text-xs font-bold text-slate-600">5</div>
+              <div class="w-9 h-9 rounded-full bg-slate-200 grid place-items-center">👩</div>
+              <div class="flex-1 text-sm font-semibold text-slate-800">최예린</div>
+              <div class="text-sm tabular-nums font-bold text-slate-700">42,108</div>
+            </div>
+            <div class="bg-white border border-slate-200 rounded-xl px-3 py-2 flex items-center gap-3">
+              <div class="w-7 h-7 rounded-full bg-slate-100 grid place-items-center text-xs font-bold text-slate-600">6</div>
+              <div class="w-9 h-9 rounded-full bg-slate-200 grid place-items-center">🧔</div>
+              <div class="flex-1 text-sm font-semibold text-slate-800">정태호</div>
+              <div class="text-sm tabular-nums font-bold text-slate-700">39,820</div>
+            </div>
+            <div class="bg-white border border-slate-200 rounded-xl px-3 py-2 flex items-center gap-3">
+              <div class="w-7 h-7 rounded-full bg-slate-100 grid place-items-center text-xs font-bold text-slate-600">7</div>
+              <div class="w-9 h-9 rounded-full bg-slate-200 grid place-items-center">👱</div>
+              <div class="flex-1 text-sm font-semibold text-slate-800">한승우</div>
+              <div class="text-sm tabular-nums font-bold text-slate-700">36,415</div>
+            </div>
+          </div>
+
+          <div class="nav">
+            <div class="nav-item">
+              <svg class="nav-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M12 3l9 8h-3v9h-4v-6h-4v6H6v-9H3z"/></svg>
+              <span>홈</span>
+            </div>
+            <div class="nav-item">
+              <svg class="nav-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3C14.8 12 16.8 13 19 13v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L6 8.3V13h2V9.6l1.8-.7"/></svg>
+              <span>산책</span>
+            </div>
+            <div class="nav-item active">
+              <svg class="nav-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M16 11V3H8v6H2v12h20V11h-6zM10 5h4v14h-4V5zm-6 6h4v8H4v-8zm16 8h-4v-6h4v6z"/></svg>
+              <span>랭킹</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="text-center mt-3">
+        <div class="font-semibold text-slate-900">랭킹</div>
+        <div class="text-xs text-slate-500">그룹 Top 10 리더보드 (v3 단순화)</div>
+      </div>
+    </div>
+
+    <!-- ============ 4. 로그인 ============ -->
+    <div>
+      <div class="phone">
+        <div class="notch"></div>
+        <div class="status"><span>9:44</span><span>●●●●  100%</span></div>
+        <div class="screen px-6 pb-8 justify-between">
+          <div class="pt-12">
+            <div class="w-16 h-16 rounded-2xl bg-emerald-500 grid place-items-center text-3xl font-extrabold text-white shadow-lg shadow-emerald-500/30">W</div>
+            <h1 class="scr mt-5">함께 걸어요</h1>
+            <p class="sub mt-2 leading-relaxed">친구·동료와 그룹을 만들고<br/>주간 Top 10 리더보드를 겨뤄보세요.</p>
+          </div>
+
+          <div class="space-y-3">
+            <div>
+              <label class="text-xs font-semibold text-slate-600">이메일</label>
+              <div class="mt-1 px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 text-sm text-slate-700">seungkilee0307@gmail.com</div>
+            </div>
+            <div>
+              <label class="text-xs font-semibold text-slate-600">비밀번호</label>
+              <div class="mt-1 px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 text-sm text-slate-400 tracking-widest">••••••••</div>
+            </div>
+
+            <button class="w-full bg-emerald-500 text-white rounded-xl py-3 text-sm font-bold shadow-md shadow-emerald-500/30">
+              로그인
+            </button>
+
+            <div class="flex items-center gap-2 my-2">
+              <div class="flex-1 h-px bg-slate-200"></div>
+              <span class="text-[11px] text-slate-400">또는</span>
+              <div class="flex-1 h-px bg-slate-200"></div>
+            </div>
+
+            <button class="w-full border border-slate-200 rounded-xl py-3 text-sm font-semibold text-slate-700 bg-white">
+              회원가입
+            </button>
+
+            <div class="text-center text-[10px] text-slate-400 mt-3">
+              로그인 시 <span class="underline">서비스 약관</span>과 <span class="underline">개인정보 처리방침</span>에 동의합니다.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="text-center mt-3">
+        <div class="font-semibold text-slate-900">로그인 / 회원가입</div>
+        <div class="text-xs text-slate-500">JWT + bcrypt</div>
+      </div>
+    </div>
+
+  </div>
+
+  <section class="mt-10 bg-white border rounded-2xl p-6">
+    <h2 class="font-bold text-slate-900 mb-3">📌 디자인 결정 (명세서 기반)</h2>
+    <ul class="text-sm text-slate-700 space-y-2 list-disc list-inside">
+      <li><b>BottomNavigation 3탭</b> (홈/산책/랭킹) — Single Activity 구조와 정합</li>
+      <li><b>Material 3 컬러 시스템</b> — emerald(걷기 도메인), slate(중립), amber(랭킹 1위)</li>
+      <li><b>HC 배지 표시</b> (홈) — Health Connect 통합 차별화 시각화</li>
+      <li><b>산책 화면 출발 라벨</b> — Naver Reverse Geocoding API 결과 표시 ("석촌호수로")</li>
+      <li><b>Top 10 포디움</b> — 1/2/3위 시각 강조, 4-10위는 리스트 (v3에서 단순화 결정)</li>
+      <li><b>로그인 카피</b> "함께 걸어요" — 워크온 복제 방어, 사회적 동기 강조</li>
+    </ul>
+  </section>
+</div>
+
+</body>
+</html>
