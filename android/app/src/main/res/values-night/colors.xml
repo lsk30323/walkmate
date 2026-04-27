@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- ================================================================== -->
+    <!-- Material 3 Dark Theme — emerald-400 primary on slate-900 background -->
+    <!-- 참고: Samsung Health / 워크온 다크 모드 톤과 정합성 검증              -->
+    <!-- ================================================================== -->
+
+    <!-- Primary (emerald-400 밝게, 다크 배경 위 가독성) -->
+    <color name="md_theme_dark_primary">#FF4ADE80</color>
+    <color name="md_theme_dark_onPrimary">#FF003914</color>
+    <color name="md_theme_dark_primaryContainer">#FF15803D</color>
+    <color name="md_theme_dark_onPrimaryContainer">#FFA7F3D0</color>
+
+    <!-- Secondary (amber-300 밝게) -->
+    <color name="md_theme_dark_secondary">#FFFCD34D</color>
+    <color name="md_theme_dark_onSecondary">#FF422006</color>
+    <color name="md_theme_dark_secondaryContainer">#FF92400E</color>
+    <color name="md_theme_dark_onSecondaryContainer">#FFFEF3C7</color>
+
+    <!-- Tertiary (blue-300 밝게) -->
+    <color name="md_theme_dark_tertiary">#FF93C5FD</color>
+    <color name="md_theme_dark_onTertiary">#FF0B2540</color>
+    <color name="md_theme_dark_tertiaryContainer">#FF1E40AF</color>
+    <color name="md_theme_dark_onTertiaryContainer">#FFDBEAFE</color>
+
+    <!-- Error (rose-400 밝게) -->
+    <color name="md_theme_dark_error">#FFFB7185</color>
+    <color name="md_theme_dark_onError">#FF410002</color>
+    <color name="md_theme_dark_errorContainer">#FF991B1B</color>
+    <color name="md_theme_dark_onErrorContainer">#FFFEE2E2</color>
+
+    <!-- Background / Surface -->
+    <color name="md_theme_dark_background">#FF0F172A</color>
+    <color name="md_theme_dark_onBackground">#FFF1F5F9</color>
+    <color name="md_theme_dark_surface">#FF1E293B</color>
+    <color name="md_theme_dark_onSurface">#FFF1F5F9</color>
+    <color name="md_theme_dark_surfaceVariant">#FF334155</color>
+    <color name="md_theme_dark_onSurfaceVariant">#FFCBD5E1</color>
+
+    <!-- Surface Container 5단계 (다크) -->
+    <color name="md_theme_dark_surfaceContainerLowest">#FF020617</color>
+    <color name="md_theme_dark_surfaceContainerLow">#FF0F172A</color>
+    <color name="md_theme_dark_surfaceContainer">#FF1E293B</color>
+    <color name="md_theme_dark_surfaceContainerHigh">#FF334155</color>
+    <color name="md_theme_dark_surfaceContainerHighest">#FF475569</color>
+
+    <!-- Outline -->
+    <color name="md_theme_dark_outline">#FF64748B</color>
+    <color name="md_theme_dark_outlineVariant">#FF334155</color>
+
+    <!-- Inverse / Scrim / SurfaceTint -->
+    <color name="md_theme_dark_inverseSurface">#FFE2E8F0</color>
+    <color name="md_theme_dark_inverseOnSurface">#FF0F172A</color>
+    <color name="md_theme_dark_inversePrimary">#FF15803D</color>
+    <color name="md_theme_dark_scrim">#FF000000</color>
+    <color name="md_theme_dark_surfaceTint">#FF4ADE80</color>
+
+    <!-- ================================================================== -->
+    <!-- WalkMate 도메인 커스텀 토큰 (다크 변종) — 25개 모두 재정의            -->
+    <!-- ================================================================== -->
+
+    <!-- 지도 / 산책 경로 (다크 지도 위 가독성) -->
+    <color name="walkmate_route_color">#FF4ADE80</color>
+    <color name="walkmate_route_color_alpha">#804ADE80</color>
+    <color name="walkmate_route_start_marker">#FF22C55E</color>
+    <color name="walkmate_route_end_marker">#FFFB7185</color>
+
+    <!-- 현재 위치 / 펄스 -->
+    <color name="walkmate_location_pulse">#FF93C5FD</color>
+    <color name="walkmate_location_pulse_outer">#33BFDBFE</color>
+
+    <!-- HC 배지 -->
+    <color name="walkmate_hc_badge_bg">#FF15803D</color>
+    <color name="walkmate_hc_badge_fg">#FFA7F3D0</color>
+    <color name="walkmate_hc_streak_bg">#FF92400E</color>
+    <color name="walkmate_hc_streak_fg">#FFFEF3C7</color>
+
+    <!-- 그룹 랭킹 -->
+    <color name="walkmate_ranking_first">#FFFCD34D</color>
+    <color name="walkmate_ranking_first_bg">#FF92400E</color>
+    <color name="walkmate_ranking_second">#FF94A3B8</color>
+    <color name="walkmate_ranking_second_bg">#FF334155</color>
+    <color name="walkmate_ranking_third">#FFFBBF24</color>
+    <color name="walkmate_ranking_third_bg">#FF92400E</color>
+    <color name="walkmate_ranking_self_highlight">#FF15803D</color>
+
+    <!-- 걸음수 게이지 -->
+    <color name="walkmate_step_gauge_track">#FF334155</color>
+    <color name="walkmate_step_gauge_progress">#FF4ADE80</color>
+    <color name="walkmate_step_gauge_complete">#FF22C55E</color>
+
+    <!-- 차트 -->
+    <color name="walkmate_chart_bar_default">#FF15803D</color>
+    <color name="walkmate_chart_bar_today">#FF4ADE80</color>
+    <color name="walkmate_chart_grid">#FF334155</color>
+
+</resources>

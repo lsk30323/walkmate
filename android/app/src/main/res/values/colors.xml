@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- ================================================================== -->
+    <!-- Material 3 Light Theme — derived from walkmate-ui.html palette       -->
+    <!-- Source of truth: emerald-500 #16a34a primary seed                   -->
+    <!-- Stitch DS reference: assets/8613951316237647150                      -->
+    <!-- ================================================================== -->
+
+    <!-- Primary (걷기 도메인 / emerald) -->
+    <color name="md_theme_light_primary">#FF16A34A</color>
+    <color name="md_theme_light_onPrimary">#FFFFFFFF</color>
+    <color name="md_theme_light_primaryContainer">#FFD1FAE5</color>
+    <color name="md_theme_light_onPrimaryContainer">#FF052E1A</color>
+
+    <!-- Secondary (랭킹 강조 / amber) -->
+    <color name="md_theme_light_secondary">#FFFBBF24</color>
+    <color name="md_theme_light_onSecondary">#FF1F1300</color>
+    <color name="md_theme_light_secondaryContainer">#FFFEF3C7</color>
+    <color name="md_theme_light_onSecondaryContainer">#FF3B2A05</color>
+
+    <!-- Tertiary (위치/GPS / blue) -->
+    <!-- onTertiary는 dark text로 — blue-400은 tone 70 수준이라 white text 시 2.54:1 (WCAG fail).
+         M3 표준 tone 80 tertiary는 dark onTertiary 권장. blue-950 #0B2540로 통일 → 6.10:1 통과. -->
+    <color name="md_theme_light_tertiary">#FF60A5FA</color>
+    <color name="md_theme_light_onTertiary">#FF0B2540</color>
+    <color name="md_theme_light_tertiaryContainer">#FFDBEAFE</color>
+    <color name="md_theme_light_onTertiaryContainer">#FF0B2540</color>
+
+    <!-- Error (산책 종료 / rose) -->
+    <color name="md_theme_light_error">#FFEF4444</color>
+    <color name="md_theme_light_onError">#FFFFFFFF</color>
+    <color name="md_theme_light_errorContainer">#FFFEE2E2</color>
+    <color name="md_theme_light_onErrorContainer">#FF410002</color>
+
+    <!-- Background / Surface -->
+    <color name="md_theme_light_background">#FFFFFFFF</color>
+    <color name="md_theme_light_onBackground">#FF0F172A</color>
+    <color name="md_theme_light_surface">#FFFFFFFF</color>
+    <color name="md_theme_light_onSurface">#FF0F172A</color>
+    <color name="md_theme_light_surfaceVariant">#FFF1F5F9</color>
+    <color name="md_theme_light_onSurfaceVariant">#FF475569</color>
+
+    <!-- Surface Container (M3 2024, 5단계 톤) -->
+    <color name="md_theme_light_surfaceContainerLowest">#FFFFFFFF</color>
+    <color name="md_theme_light_surfaceContainerLow">#FFF8FAFC</color>
+    <color name="md_theme_light_surfaceContainer">#FFF1F5F9</color>
+    <color name="md_theme_light_surfaceContainerHigh">#FFE2E8F0</color>
+    <color name="md_theme_light_surfaceContainerHighest">#FFCBD5E1</color>
+
+    <!-- Outline -->
+    <color name="md_theme_light_outline">#FF94A3B8</color>
+    <color name="md_theme_light_outlineVariant">#FFE2E8F0</color>
+
+    <!-- Inverse / Scrim / SurfaceTint -->
+    <color name="md_theme_light_inverseSurface">#FF1E293B</color>
+    <color name="md_theme_light_inverseOnSurface">#FFF1F5F9</color>
+    <color name="md_theme_light_inversePrimary">#FF86EFAC</color>
+    <color name="md_theme_light_scrim">#FF000000</color>
+    <color name="md_theme_light_surfaceTint">#FF16A34A</color>
+
+    <!-- ================================================================== -->
+    <!-- WalkMate 도메인 커스텀 토큰 (M3 표준 외)                              -->
+    <!-- ================================================================== -->
+
+    <!-- 지도 / 산책 경로 -->
+    <color name="walkmate_route_color">#FF16A34A</color>
+    <color name="walkmate_route_color_alpha">#8016A34A</color>
+    <color name="walkmate_route_start_marker">#FF15803D</color>
+    <color name="walkmate_route_end_marker">#FFEF4444</color>
+
+    <!-- 현재 위치 / 펄스 애니메이션 -->
+    <color name="walkmate_location_pulse">#FF60A5FA</color>
+    <color name="walkmate_location_pulse_outer">#3393C5FD</color>
+
+    <!-- Health Connect 배지 -->
+    <color name="walkmate_hc_badge_bg">#FFD1FAE5</color>
+    <color name="walkmate_hc_badge_fg">#FF15803D</color>
+    <color name="walkmate_hc_streak_bg">#FFFEF3C7</color>
+    <color name="walkmate_hc_streak_fg">#FF92400E</color>
+
+    <!-- 그룹 랭킹 (1/2/3위 + 본인 강조) -->
+    <color name="walkmate_ranking_first">#FFFBBF24</color>
+    <color name="walkmate_ranking_first_bg">#FFFEF3C7</color>
+    <color name="walkmate_ranking_second">#FF94A3B8</color>
+    <color name="walkmate_ranking_second_bg">#FFF1F5F9</color>
+    <color name="walkmate_ranking_third">#FFD97706</color>
+    <color name="walkmate_ranking_third_bg">#FFFEF3C7</color>
+    <color name="walkmate_ranking_self_highlight">#FFD1FAE5</color>
+
+    <!-- 걸음수 게이지 -->
+    <color name="walkmate_step_gauge_track">#FFE2E8F0</color>
+    <color name="walkmate_step_gauge_progress">#FF16A34A</color>
+    <color name="walkmate_step_gauge_complete">#FF15803D</color>
+
+    <!-- 차트 (주간 막대) -->
+    <color name="walkmate_chart_bar_default">#FF86EFAC</color>
+    <color name="walkmate_chart_bar_today">#FF16A34A</color>
+    <color name="walkmate_chart_grid">#FFF1F5F9</color>
+
+</resources>

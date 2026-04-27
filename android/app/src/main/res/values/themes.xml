@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- ================================================================== -->
+    <!-- Theme.WalkMate — Material 3 DayNight base                           -->
+    <!-- DynamicColors intentionally NOT applied (preserve emerald brand).    -->
+    <!-- See mapping-rationale.md for decision context.                       -->
+    <!-- ================================================================== -->
+
+    <style name="Base.Theme.WalkMate" parent="Theme.Material3.DayNight.NoActionBar">
+
+        <!-- Primary -->
+        <item name="colorPrimary">@color/md_theme_light_primary</item>
+        <item name="colorOnPrimary">@color/md_theme_light_onPrimary</item>
+        <item name="colorPrimaryContainer">@color/md_theme_light_primaryContainer</item>
+        <item name="colorOnPrimaryContainer">@color/md_theme_light_onPrimaryContainer</item>
+
+        <!-- Secondary (amber, 랭킹) -->
+        <item name="colorSecondary">@color/md_theme_light_secondary</item>
+        <item name="colorOnSecondary">@color/md_theme_light_onSecondary</item>
+        <item name="colorSecondaryContainer">@color/md_theme_light_secondaryContainer</item>
+        <item name="colorOnSecondaryContainer">@color/md_theme_light_onSecondaryContainer</item>
+
+        <!-- Tertiary (blue, 위치) -->
+        <item name="colorTertiary">@color/md_theme_light_tertiary</item>
+        <item name="colorOnTertiary">@color/md_theme_light_onTertiary</item>
+        <item name="colorTertiaryContainer">@color/md_theme_light_tertiaryContainer</item>
+        <item name="colorOnTertiaryContainer">@color/md_theme_light_onTertiaryContainer</item>
+
+        <!-- Error -->
+        <item name="colorError">@color/md_theme_light_error</item>
+        <item name="colorOnError">@color/md_theme_light_onError</item>
+        <item name="colorErrorContainer">@color/md_theme_light_errorContainer</item>
+        <item name="colorOnErrorContainer">@color/md_theme_light_onErrorContainer</item>
+
+        <!-- Surface / Background -->
+        <item name="android:colorBackground">@color/md_theme_light_background</item>
+        <item name="colorOnBackground">@color/md_theme_light_onBackground</item>
+        <item name="colorSurface">@color/md_theme_light_surface</item>
+        <item name="colorOnSurface">@color/md_theme_light_onSurface</item>
+        <item name="colorSurfaceVariant">@color/md_theme_light_surfaceVariant</item>
+        <item name="colorOnSurfaceVariant">@color/md_theme_light_onSurfaceVariant</item>
+
+        <!-- Surface Container 5단계 (M3 2024) -->
+        <item name="colorSurfaceContainerLowest">@color/md_theme_light_surfaceContainerLowest</item>
+        <item name="colorSurfaceContainerLow">@color/md_theme_light_surfaceContainerLow</item>
+        <item name="colorSurfaceContainer">@color/md_theme_light_surfaceContainer</item>
+        <item name="colorSurfaceContainerHigh">@color/md_theme_light_surfaceContainerHigh</item>
+        <item name="colorSurfaceContainerHighest">@color/md_theme_light_surfaceContainerHighest</item>
+
+        <!-- Outline -->
+        <item name="colorOutline">@color/md_theme_light_outline</item>
+        <item name="colorOutlineVariant">@color/md_theme_light_outlineVariant</item>
+
+        <!-- Inverse -->
+        <item name="colorSurfaceInverse">@color/md_theme_light_inverseSurface</item>
+        <item name="colorOnSurfaceInverse">@color/md_theme_light_inverseOnSurface</item>
+        <item name="colorPrimaryInverse">@color/md_theme_light_inversePrimary</item>
+
+        <!-- Shape -->
+        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.WalkMate.SmallComponent</item>
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.WalkMate.MediumComponent</item>
+        <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.WalkMate.LargeComponent</item>
+
+        <!-- Typography (Pretendard) -->
+        <item name="textAppearanceHeadlineLarge">@style/TextAppearance.WalkMate.HeadlineLarge</item>
+        <item name="textAppearanceHeadlineMedium">@style/TextAppearance.WalkMate.HeadlineMedium</item>
+        <item name="textAppearanceTitleLarge">@style/TextAppearance.WalkMate.TitleLarge</item>
+        <item name="textAppearanceBodyLarge">@style/TextAppearance.WalkMate.BodyLarge</item>
+        <item name="textAppearanceBodyMedium">@style/TextAppearance.WalkMate.BodyMedium</item>
+        <item name="textAppearanceLabelLarge">@style/TextAppearance.WalkMate.LabelLarge</item>
+
+        <!-- System bars -->
+        <item name="android:statusBarColor">?attr/colorSurface</item>
+        <item name="android:navigationBarColor">?attr/colorSurface</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">true</item>
+    </style>
+
+    <style name="Theme.WalkMate" parent="Base.Theme.WalkMate" />
+
+    <!-- ================================================================== -->
+    <!-- Component Style Overrides                                            -->
+    <!-- Tailwind rounded-xl=12dp, rounded-2xl=16dp, rounded-3xl=24dp 매핑    -->
+    <!-- ================================================================== -->
+
+    <!-- Button: rounded-xl (12dp), 52dp height, label-large typography -->
+    <style name="Widget.WalkMate.Button" parent="Widget.Material3.Button">
+        <item name="cornerRadius">12dp</item>
+        <item name="android:minHeight">52dp</item>
+        <item name="android:textAppearance">?attr/textAppearanceLabelLarge</item>
+    </style>
+
+    <style name="Widget.WalkMate.Button.Outlined" parent="Widget.Material3.Button.OutlinedButton">
+        <item name="cornerRadius">12dp</item>
+        <item name="android:minHeight">52dp</item>
+    </style>
+
+    <style name="Widget.WalkMate.Button.Tonal" parent="Widget.Material3.Button.TonalButton">
+        <item name="cornerRadius">12dp</item>
+        <item name="android:minHeight">52dp</item>
+    </style>
+
+    <!-- Card: rounded-2xl (16dp) -->
+    <style name="Widget.WalkMate.CardView" parent="Widget.Material3.CardView.Elevated">
+        <item name="cardCornerRadius">16dp</item>
+        <item name="cardElevation">2dp</item>
+    </style>
+
+    <!-- Hero Card: rounded-3xl (24dp) — 홈 걸음수, 산책 시작 -->
+    <style name="Widget.WalkMate.CardView.Hero" parent="Widget.WalkMate.CardView">
+        <item name="cardCornerRadius">24dp</item>
+        <item name="cardElevation">4dp</item>
+    </style>
+
+    <!-- Filled Card (배지/통계) -->
+    <style name="Widget.WalkMate.CardView.Filled" parent="Widget.Material3.CardView.Filled">
+        <item name="cardCornerRadius">16dp</item>
+    </style>
+
+    <!-- BottomNavigation: 흰 배경, primary active indicator -->
+    <style name="Widget.WalkMate.BottomNavigationView" parent="Widget.Material3.BottomNavigationView">
+        <item name="backgroundTint">?attr/colorSurface</item>
+        <item name="itemTextColor">@color/md_theme_light_onSurfaceVariant</item>
+        <item name="itemIconTint">@color/md_theme_light_onSurfaceVariant</item>
+        <item name="itemActiveIndicatorStyle">@style/Widget.Material3.BottomNavigationView.ActiveIndicator</item>
+    </style>
+
+    <!-- Bottom Sheet (산책 종료 시트) — 상단 2개 코너만 24dp 라운드 -->
+    <style name="Widget.WalkMate.BottomSheet" parent="Widget.Material3.BottomSheet">
+        <item name="shapeAppearance">@style/ShapeAppearance.WalkMate.BottomSheet</item>
+    </style>
+
+    <!-- Pill Chip (HC 배지, 랭킹 기간) -->
+    <style name="Widget.WalkMate.Chip.Pill" parent="Widget.Material3.Chip.Assist">
+        <item name="chipCornerRadius">999dp</item>
+        <item name="chipMinHeight">28dp</item>
+    </style>
+
+</resources>

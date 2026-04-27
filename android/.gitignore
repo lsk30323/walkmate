@@ -1,0 +1,36 @@
+# Built
+build/
+*.apk
+*.aab
+*.ap_
+*.dex
+*.class
+
+# Local config
+local.properties
+.gradle/
+.kotlin/
+captures/
+.externalNativeBuild/
+.cxx/
+
+# IDE
+*.iml
+.idea/
+.vscode/
+*.iws
+*.ipr
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Sensitive
+google-services.json
+**/keystore.properties
+**/*.jks
+**/*.keystore
+
+# Generated
+.navigation/
+hs_err_pid*

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">WalkMate</string>
+
+    <!-- Bottom Navigation -->
+    <string name="nav_home">홈</string>
+    <string name="nav_walk">산책</string>
+    <string name="nav_ranking">랭킹</string>
+
+    <!-- Placeholder (Week 1) -->
+    <string name="placeholder_home">홈 화면 — Week 2 구현 예정</string>
+    <string name="placeholder_walk">산책 화면 — Week 4-5 구현 예정</string>
+    <string name="placeholder_ranking">랭킹 화면 — Week 7 구현 예정</string>
+
+    <!-- 공통 액션 -->
+    <string name="action_start_walk">산책 시작</string>
+    <string name="action_pause">일시정지</string>
+    <string name="action_resume">재개</string>
+    <string name="action_stop">종료</string>
+
+    <!-- 단위 -->
+    <string name="unit_steps">보</string>
+    <string name="unit_kcal">kcal</string>
+    <string name="unit_km">km</string>
+    <string name="unit_min">분</string>
+</resources>
